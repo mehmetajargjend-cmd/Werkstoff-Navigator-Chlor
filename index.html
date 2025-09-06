@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="de" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interaktiver Leitfaden zur Werkstoffbeständigkeit in Chlor-Anwendungen</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #111827; /* Dark background */
+            color: #d1d5db; /* Light gray text */
+        }
+        .glass-pane {
+            background: rgba(31, 41, 55, 0.6); /* Semi-transparent dark gray */
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .rating-gradient-10 { background: linear-gradient(135deg, #10B981, #059669); color: white; }
+        .rating-gradient-9 { background: linear-gradient(135deg, #10B981, #34D399); color: white; }
+        .rating-gradient-8 { background: linear-gradient(135deg, #34D399, #6EE7B7); color: #1f2937; }
+        .rating-gradient-7 { background: linear-gradient(135deg, #A7F3D0, #6EE7B7); color: #1f2937; }
+        .rating-gradient-6 { background: linear-gradient(135deg, #FBBF24, #F59E0B); color: #1f2937; }
+        .rating-gradient-5 { background: linear-gradient(135deg, #FCD34D, #FBBF24); color: #1f2937; }
+        .rating-gradient-4 { background: linear-gradient(135deg, #FCA5A5, #F87171); color: #1f2937; }
+        .rating-gradient-3 { background: linear-gradient(135deg, #F87171, #EF4444); color: white; }
+        .rating-gradient-2 { background: linear-gradient(135deg, #EF4444, #DC2626); color: white; }
+        .rating-gradient-1 { background: linear-gradient(135deg, #DC2626, #B91C1C); color: white; }
+        .rating-gradient-0 { background: linear-gradient(135deg, #B91C1C, #991B1B); color: white; }
+
+        .slider-thumb::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: #3b82f6;
+            cursor: pointer;
+            border-radius: 50%;
+            border: 2px solid white;
+        }
+        .slider-thumb::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: #3b82f6;
+            cursor: pointer;
+            border-radius: 50%;
+             border: 2px solid white;
+        }
+        .modal {
+            transition: opacity 0.25s ease;
+        }
+        .modal-content {
+            transition: transform 0.25s ease;
+        }
+        .level-card.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .details-accordion {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+        .details-accordion.expanded {
+             max-height: 1000px; /* Adjust as needed */
+        }
+        .accordion-header .chevron {
+            transition: transform 0.3s ease;
+        }
+        .accordion-header.expanded .chevron {
+            transform: rotate(180deg);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 glass-pane">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <h1 class="text-xl font-bold text-white">Werkstoff-Navigator Chlor</h1>
+                </div>
+                <nav class="hidden md:flex md:space-x-8">
+                    <a href="#principles" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Grundprinzipien</a>
+                    <a href="#materials" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Werkstoffe</a>
+                    <a href="#simulator" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Simulator</a>
+                    <a href="#quiz" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Quiz</a>
+                    <a href="#" id="open-source-modal-btn" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">Quelle</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 sm:p-6 lg:p-8">
+        
+        <!-- Principles Section -->
+        <section id="principles" class="my-16">
+            <h3 class="text-2xl font-bold text-white mb-6 text-center">Die 4 fundamentalen Prinzipien</h3>
+            <div class="space-y-4">
+                <!-- Rule 1 -->
+                <div class="glass-pane rounded-lg">
+                    <div class="accordion-header p-6 cursor-pointer flex justify-between items-center">
+                        <h4 class="text-xl font-bold text-white">💧 Regel 1: Wasser ist der Feind</h4>
+                        <svg class="chevron w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="details-accordion px-6 pb-6">
+                        <p class="text-gray-400 mb-4">Feuchtigkeit reagiert mit Chlor zu Salzsäure (HCl) und Hypochloriger Säure (HClO). Dieses aggressive Gemisch ist die Hauptursache für schwere Korrosionsschäden an Metallen und Polymeren.</p>
+                        <div class="mt-4 p-4 rounded-lg border border-blue-500/50 bg-blue-500/10">
+                            <h5 class="font-bold text-white">Chemische Reaktion</h5>
+                            <p class="text-center my-2 text-lg font-mono text-cyan-300">Cl₂ + H₂O ⇌ HCl + HClO</p>
+                            <p>Diese Gleichgewichtsreaktion erzeugt zwei synergistisch wirkende Angreifer:</p>
+                            <ul class="list-disc list-inside mt-2 space-y-1">
+                                <li><strong>Salzsäure (HCl):</strong> Liefert hochmobile Chlorid-Ionen (Cl⁻), die die primären Angreifer auf die schützende Passivschicht von Metallen sind.</li>
+                                <li><strong>Hypochlorige Säure (HClO):</strong> Ist ein wesentlich stärkeres Oxidationsmittel als Chlorgas selbst und greift die C-H-Bindungen in Polymeren an, was zu deren Zersetzung führt.</li>
+                            </ul>
+                        </div>
+                         <div class="mt-4 text-center"></div>
+                    </div>
+                </div>
+
+                <!-- Rule 2 -->
+                 <div class="glass-pane rounded-lg">
+                    <div class="accordion-header p-6 cursor-pointer flex justify-between items-center">
+                        <h4 class="text-xl font-bold text-white">🛡️ Regel 2: Die C-F-Bindung ist der Schutz</h4>
+                         <svg class="chevron w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="details-accordion px-6 pb-6">
+                        <p class="text-gray-400 mb-4">Die extrem stabile Kohlenstoff-Fluor-Bindung (~485 kJ/mol) macht vollfluorierte Polymere (PTFE, FFKM) chemisch nahezu unangreifbar für Chlor und dessen Säuren.</p>
+                        <div class="mt-4 p-4 rounded-lg border border-green-500/50 bg-green-500/10">
+                             <h5 class="font-bold text-white">Die Wissenschaft: Bindungsdissoziationsenergie (BDE)</h5>
+                            <p>Die BDE ist die Energiemenge, die benötigt wird, um eine chemische Bindung zu spalten. Je höher der Wert, desto stabiler die Bindung.</p>
+                             <table class="w-full text-left mt-2">
+                                <thead>
+                                    <tr class="border-b border-gray-600">
+                                        <th class="py-2">Bindungstyp</th>
+                                        <th class="py-2">BDE (kJ/mol)</th>
+                                        <th class="py-2">Implikation</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="border-b border-gray-700">
+                                        <td class="py-2 font-bold text-green-300">C-F</td>
+                                        <td class="py-2 font-bold text-green-300">~ 485</td>
+                                        <td>Extrem beständig, kann von Chlor nicht gespalten werden.</td>
+                                    </tr>
+                                    <tr class="border-b border-gray-700">
+                                        <td class="py-2 text-yellow-300">C-H</td>
+                                        <td class="py-2 text-yellow-300">~ 413</td>
+                                        <td>Anfällig für Angriff durch starke Oxidationsmittel (HClO).</td>
+                                    </tr>
+                                     <tr>
+                                        <td class="py-2 text-red-300">C-Cl</td>
+                                        <td class="py-2 text-red-300">~ 339</td>
+                                        <td>Schwächste Bindung hier, relevanter Abbaumechanismus.</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-4 text-center"></div>
+                    </div>
+                </div>
+
+                <!-- Rule 3 -->
+                <div class="glass-pane rounded-lg">
+                    <div class="accordion-header p-6 cursor-pointer flex justify-between items-center">
+                        <h4 class="text-xl font-bold text-white">🛡️ Regel 3: Chrom & Molybdän sind die Wächter</h4>
+                         <svg class="chevron w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="details-accordion px-6 pb-6">
+                        <p class="text-gray-400 mb-4">Sie bilden und stabilisieren die selbstreparierende Chromoxid-Passivschicht, die Metalle schützt. Die Beständigkeit wird quantitativ über die Wirksumme (PREN) bewertet.</p>
+                        <div class="mt-4 p-4 rounded-lg border border-yellow-500/50 bg-yellow-500/10">
+                            <h5 class="font-bold text-white">Der Mechanismus: Passivierung</h5>
+                             <p>An der Oberfläche von Edelstählen bildet sich spontan eine extrem dünne, dichte und unsichtbare Schicht aus Chrom(III)-oxid (Cr₂O₃). Diese Schicht trennt das Metall vom korrosiven Medium.</p>
+                             <ul class="list-disc list-inside mt-2 space-y-1">
+                                 <li><strong>Molybdän (Mo):</strong> Erhöht die Widerstandsfähigkeit der Schicht gegen Chlorid-Angriffe und fördert die schnelle "Selbstheilung" (Repassivierung).</li>
+                            </ul>
+                            <h5 class="font-bold text-white mt-4">Quantitative Bewertung: PREN-Wert</h5>
+                            <p class="text-center my-2 text-lg font-mono text-yellow-300">PREN = %Cr + 3.3 × %Mo + 16 × %N</p>
+                             <p>Je höher der PREN-Wert, desto widerstandsfähiger ist die Legierung gegen Lochfraßkorrosion.</p>
+                        </div>
+                         <div class="mt-4 text-center"></div>
+                    </div>
+                </div>
+
+                <!-- Rule 4 -->
+                 <div class="glass-pane rounded-lg">
+                    <div class="accordion-header p-6 cursor-pointer flex justify-between items-center">
+                        <h4 class="text-xl font-bold text-white">⚖️ Regel 4: Mechanik & Physik sind entscheidend</h4>
+                         <svg class="chevron w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="details-accordion px-6 pb-6">
+                        <p class="text-gray-400 mb-4">Chemische Beständigkeit allein ist unzureichend. Ein Werkstoff muss Betriebsbedingungen wie Druck und Temperatur standhalten.</p>
+                         <div class="mt-4 p-4 rounded-lg border border-red-500/50 bg-red-500/10">
+                            <h5 class="font-bold text-white">Kritische Versagensmechanismen</h5>
+                             <ul class="list-disc list-inside mt-2 space-y-2">
+                                 <li><strong>Kriechen (Creep):</strong> Zeitabhängige, permanente Verformung unter konstanter Last. Bestimmt die Langzeitfestigkeit von Kunststoffrohren.</li>
+                                 <li><strong>Kaltfluss (Cold Flow):</strong> Spezifisch für PTFE. Führt unter Druck (z.B. bei Dichtungen) zu einem Verlust der Dichtkraft.</li>
+                                 <li><strong>Thermisches Derating:</strong> Signifikante Reduzierung der Druckbelastbarkeit von Kunststoffen bei steigenden Temperaturen.</li>
+                                 <li><strong>Spannungsrisskorrosion (SpRK/SCC):</strong> Besonders heimtückisch bei Metallen. Die Kombination aus Zugspannung und einem korrosiven Medium (z.B. warme Chloridlösungen für Edelstahl) führt zu sprödem Bruch ohne Vorwarnung.</li>
+                            </ul>
+                        </div>
+                         <div class="mt-4 text-center"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Materials Section -->
+        <section id="materials" class="my-16">
+            <h3 class="text-2xl font-bold text-white mb-6 text-center">Werkstoffe im Detail</h3>
+            <div id="materialsGrid" class="space-y-4">
+                 <!-- Material accordion items will be injected here -->
+            </div>
+        </section>
+        
+        <!-- Simulator Section -->
+        <section id="simulator" class="my-16">
+            <div class="glass-pane p-6 rounded-xl shadow-lg">
+                <h3 class="text-2xl font-bold text-white mb-6 text-center">Interaktiver Werkstoff-Simulator</h3>
+                
+                <!-- Controls -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 items-center">
+                    <!-- Medium Selection -->
+                    <div>
+                        <label for="medium" class="block text-sm font-medium text-gray-300 mb-2">1. Medium auswählen</label>
+                        <select id="medium" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5">
+                            <option value="trockenes_chlorgas">Trockenes Chlorgas (Cl2)</option>
+                            <option value="feuchtes_chlorgas">Feuchtes Chlorgas (Cl2 + H2O)</option>
+                            <option value="fluessiges_chlor">Flüssiges Chlor (Cl2)</option>
+                            <option value="gesaettigte_chlorloesung">Gesättigte wässr. Chlorlösung</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Temperature Slider -->
+                    <div>
+                        <label for="temperature" class="block text-sm font-medium text-gray-300 mb-2">2. Temperatur einstellen: <span id="tempValue" class="font-bold text-blue-400">20°C</span></label>
+                        <input id="temperature" type="range" min="-20" max="100" value="20" class="w-full h-2 bg-gray-600 rounded-lg appearance-none cursor-pointer slider-thumb">
+                        <div id="sccWarning" class="text-xs text-red-400 mt-2 h-4"></div>
+                    </div>
+
+                    <!-- Pressure Selection -->
+                    <div>
+                        <label class="block text-sm font-medium text-gray-300 mb-2">3. Druck / Spannung wählen</label>
+                        <div id="pressure" class="grid grid-cols-3 gap-2 rounded-lg bg-gray-700 p-1">
+                             <button data-value="vakuum" class="pressure-btn text-white py-1.5 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">Vakuum</button>
+                             <button data-value="ueberdruck" class="pressure-btn text-white py-1.5 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">Überdruck</button>
+                             <button data-value="einfluss_temp" class="pressure-btn text-white py-1.5 rounded-md text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">Nur Temp.</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Grid -->
+                <div id="resultsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                    <!-- Material cards will be injected here by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quiz" class="my-16">
+            <div class="glass-pane p-6 rounded-xl shadow-lg">
+                 <div id="quiz-entry-point" class="text-center">
+                    <h3 class="text-2xl font-bold text-white mb-4">Werkstoff-Akademie</h3>
+                    <p class="text-gray-400 mb-6">Stelle dein Wissen auf die Probe und steige in den Rängen auf.</p>
+                    <button id="open-quiz-modal-btn" class="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">
+                        Quiz starten
+                    </button>
+                </div>
+                <div id="quiz-container" class="hidden">
+                    <!-- Quiz game will be rendered here by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="text-center p-6 mt-8 border-t border-gray-800">
+        <p class="text-gray-500 text-sm">Erstellt von Argjend Mehmetaj</p>
+        <p class="text-gray-600 text-xs mt-2">Alle Angaben ohne Gewähr. Erstellt nach bestem Wissen und Gewissen.</p>
+        <button id="open-feedback-modal-btn" class="mt-4 text-sm text-blue-400 hover:underline">Feedback & Verbesserungsvorschläge</button>
+    </footer>
+
+    <!-- Material Details Modal -->
+    <div id="materialModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-75 invisible opacity-0 modal">
+        <div id="modalContent" class="glass-pane rounded-lg shadow-xl w-full max-w-2xl transform scale-95 modal-content">
+            <div class="p-6">
+                <div class="flex justify-between items-start">
+                    <h3 id="modalTitle" class="text-2xl font-bold text-white"></h3>
+                    <button id="closeModal" class="text-gray-400 hover:text-white text-3xl leading-none">&times;</button>
+                </div>
+                <div id="modalBody" class="mt-4 text-gray-300 prose prose-invert max-w-none">
+                    <!-- Modal content goes here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quiz Level Selection Modal -->
+    <div id="quizLevelModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-75 invisible opacity-0 modal">
+        <div class="glass-pane rounded-lg shadow-xl w-full max-w-4xl transform scale-95 modal-content p-6">
+             <div class="flex justify-between items-start">
+                <h3 class="text-2xl font-bold text-white">Wähle deine Herausforderung</h3>
+                <button id="closeQuizModal" class="text-gray-400 hover:text-white text-3xl leading-none">&times;</button>
+            </div>
+            <p class="text-gray-400 mt-2 mb-6">Schalte höhere Stufen frei, indem du die vorherige mit mindestens 90% abschließt.</p>
+            <div id="level-selection-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Level cards will be injected here -->
+            </div>
+        </div>
+    </div>
+    
+    <!-- Source Text Modal -->
+    <div id="sourceModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-75 invisible opacity-0 modal">
+        <div class="glass-pane rounded-lg shadow-xl w-full max-w-4xl h-[90vh] flex flex-col transform scale-95 modal-content">
+            <div class="p-6 flex justify-between items-center border-b border-gray-700 flex-shrink-0">
+                <h3 class="text-2xl font-bold text-white">Originalquelle: Technischer Leitfaden</h3>
+                <button id="closeSourceModal" class="text-gray-400 hover:text-white text-3xl leading-none">&times;</button>
+            </div>
+            <div class="p-6 overflow-y-auto flex-grow">
+                <pre class="whitespace-pre-wrap text-sm text-gray-300 font-sans">
+Ein überarbeiteter und verifizierter technischer Leitfaden zur Werkstoffbeständigkeit in Chlor-Anwendungen
+
+Vorwort
+
+Dieses Dokument stellt eine kritisch überprüfte und aktualisierte Fassung des Leitfadens "Detaillierter Leitfaden zur Materialbeständigkeit in Chlor-Anwendungen" dar. Es wurde mit dem Ziel erstellt, technische Ungenauigkeiten, irreführende Vereinfachungen und veraltete Bewertungen, die im Originaldokument identifiziert wurden, zu korrigieren und zu präzisieren.
+
+Alle hierin enthaltenen technischen Behauptungen, Werkstoffbewertungen und wissenschaftlichen Erläuterungen wurden sorgfältig mit dem aktuellen Stand der wissenschaftlichen Literatur, einschlägigen Industriestandards und empirischen Daten abgeglichen und validiert. Jede wesentliche Aussage und jede Korrektur wird durch direkte Zitate aus den zugrunde liegenden Forschungsquellen untermauert, um ein Höchstmaß an Genauigkeit, Zuverlässigkeit und Nachvollziehbarkeit zu gewährleisten. Dieses Dokument richtet sich an Ingenieure, Anlagensicherheitsmanager und Werkstoffspezialisten, die eine fundierte und verlässliche Grundlage für kritische Auslegungs-, Betriebs- und Wartungsentscheidungen in Anlagen benötigen, in denen Chlor und dessen Verbindungen gehandhabt werden.
+
+Kapitel I: Die fundamentalen Prinzipien der Chlorbeständigkeit: Eine kritische Überprüfung und Präzisierung
+
+Dieses Kapitel verfeinert die vier grundlegenden "Regeln" des Originaldokuments. Qualitative Beschreibungen werden durch präzise wissenschaftliche Prinzipien und quantitative Daten ersetzt, um eine rigorose Grundlage für die nachfolgende Analyse zu schaffen.
+
+1.1 Die kritische Rolle von Wasser: Quantifizierung des „Game-Changers"
+
+Die grundlegende Aussage des Originaldokuments, dass Wasser der entscheidende Katalysator für Korrosion in Chlorsystemen ist, ist wissenschaftlich fundiert und korrekt. Bereits Spuren von Feuchtigkeit, im Bereich von wenigen parts per million (ppm), transformieren das relativ beherrschbare trockene Chlorgas in eine hochaggressive saure Umgebung.
+
+Die chemische Reaktion ist jedoch keine einfache, unidirektionale Umwandlung, sondern ein chemisches Gleichgewicht, das zwei unterschiedliche und synergistisch wirkende Korrosionsmittel erzeugt:
+
+Cl₂ + H₂O ⇌ HCl + HClO
+
+Hierbei entstehen Salzsäure (HCl) und Hypochlorige Säure (HClO). Die besondere Aggressivität dieses Gemisches resultiert aus der spezialisierten Wirkungsweise beider Säuren. Die Salzsäure dissoziiert zu hochmobilen, kleinen Chlorid-Ionen (Cl⁻), welche die primären Angreifer auf die Passivschichten von Metallen sind. Gleichzeitig ist die Hypochlorige Säure ein wesentlich stärkeres Oxidationsmittel als Chlorgas selbst. Dies lässt sich quantitativ durch den Vergleich der Standard-Redoxpotentiale belegen: Das Redoxpotential für die Reaktion 2HCIO(aq) + 2H⁺ + 2e⁻ → Cl₂(g) + 2H₂O beträgt +1.63V, während das Potential für Cl₂(g) + 2e⁻ → 2Cl⁻ bei +1.36V liegt. Dieser höhere elektrochemische Wert der Hypochlorigen Säure ist ein direktes Maß für ihre gesteigerte Fähigkeit, Elektronen aus anderen Materialien zu extrahieren und somit deren chemische Zersetzung zu beschleunigen.
+
+1.2 Fluorpolymere: Die Wissenschaft hinter dem „Fluor-Schild"
+
+Das Kernkonzept, dass die Kohlenstoff-Fluor-Bindung (C-F) der Schlüssel zur außergewöhnlichen chemischen Inertheit von Fluorpolymeren ist, ist zutreffend. Um dieses Prinzip jedoch von einer qualitativen Regel zu einer quantifizierbaren wissenschaftlichen Tatsache zu erheben, muss das Konzept der Bindungsdissoziationsenergie (BDE) eingeführt werden. Die BDE ist die Energiemenge, die erforderlich ist, um eine kovalente Bindung homolytisch zu spalten.
+
+Die C-F-Bindung besitzt mit ca. 485 kJ/mol eine der höchsten bekannten Bindungsdissoziationsenergien für eine Einfachbindung in der organischen Chemie. Dieser Wert übersteigt die Energie, die Chlor oder die daraus entstehenden Säuren aufbringen können, bei weitem. Im Vergleich dazu sind andere Bindungen, die in Polymeren vorkommen, deutlich schwächer und somit anfälliger für einen chemischen Angriff.
+
+1.3 Korrosionsbeständige Legierungen: Der Passivierungsmechanismus erklärt
+
+Die Schutzwirkung von Legierungen wie Edelstahl und Nickel-Basis-Legierungen beruht auf der spontanen Bildung einer extrem dünnen, dichten und für das menschliche Auge unsichtbaren Passivschicht an der Werkstoffoberfläche. Diese Schicht besteht vorwiegend aus Chrom(III)-oxid (Cr₂O₃) und bildet eine kinetische Barriere, die das darunterliegende Metall vom korrosiven Medium trennt. Die Qualität und Stabilität dieser Schicht ist direkt vom Chromgehalt der Legierung abhängig; ein Mindestgehalt von 10.5% Chrom ist für die Bildung einer stabilen Passivschicht erforderlich.
+
+Die Rolle von Molybdän (Mo) geht weit über die einer einfachen "Reparatur-Unterstützung" hinaus. Molybdän wird in die Chromoxid-Schicht eingebaut und erhöht deren Widerstandsfähigkeit gegen den lokalen Angriff durch Chlorid-Ionen signifikant. Es fördert die schnelle Repassivierung (Selbstheilung) bei einer lokalen Zerstörung der Schicht und stabilisiert sie gegen die Initiierung von Lochfraßkorrosion.
+
+Um die Beständigkeit verschiedener Legierungen gegen Lochfraßkorrosion in chloridhaltigen Medien quantitativ zu vergleichen, wurde die Wirksumme, auch als Pitting Resistance Equivalent Number (PREN) bekannt, als Industriestandard etabliert. Sie berechnet sich nach folgender Formel:
+
+PREN = %Cr + 3.3 × %Mo + 16 × %N
+
+Je höher der PREN-Wert, desto widerstandsfähiger ist die Legierung gegen Lochfraß. Diese Formel verdeutlicht den überproportional starken positiven Einfluss von Molybdän und Stickstoff im Vergleich zu Chrom.
+
+1.4 Die Primärstellung mechanischer und physikalischer Eigenschaften
+
+Die Feststellung, dass mechanische und physikalische Eigenschaften ebenso entscheidend sind wie die chemische Beständigkeit, ist ein fundamentaler Grundsatz der Werkstofftechnik und des sicheren Anlagenbaus. Ein chemisch inerter Werkstoff ist nutzlos, wenn er den Betriebsbedingungen wie Druck, Temperatur und mechanischer Belastung nicht standhält.
+
+Kapitel II: Analyse der korrosiven Medien
+
+2.1 Trockenes Chlorgas (C₁₂)
+Trockenes Chlorgas ist ein starkes Oxidationsmittel, das Polymere wie PE und PP über längere Zeiträume angreift, was zu Versprödung führt. Für Metalle ist es bei moderaten Temperaturen (unter ca. 150°C) weitgehend nicht korrosiv.
+
+2.2 Feuchtes Chlorgas (Cl₂ + H₂O)
+Die Anwesenheit von Wasser aktiviert zwei Angriffsmechanismen: Lochfraßkorrosion auf Metallen durch Chlorid-Ionen und oxidative Degradation von Polymeren durch Hypochlorige Säure.
+
+2.3 Flüssiges Chlor (technisch trocken, Cl₂)
+Flüssiges Chlor wirkt chemisch ähnlich wie trockenes Gas, aber mit höherer Konzentration. Physikalisch wirkt es als potentes unpolares Lösungsmittel, das viele Kunststoffe aufquellen lässt und ihre mechanische Festigkeit zerstört.
+
+2.4 Gesättigte wässrige Chlorlösung („Säure-Bad")
+Der "Worst-Case": Maximale und konstante Konzentration von HCl und HClO an der Oberfläche, was zu extrem schnellem Lochfraß bei Metallen und rapidem Abbau von Polymeren führt.
+
+Kapitel III: Werkstoffbewertungen
+
+3.1 Vollständig fluorierte Polymere (PTFE, FFKM)
+Chemisch inert aufgrund der stabilen C-F-Bindungen. Ein Risiko bei PTFE ist die Permeabilität für Gase wie Chlor, was bei ausgekleideten Bauteilen zur Korrosion des Trägermaterials führen kann.
+
+3.2 Teilfluorierte Polymere (FKM, PVDF)
+PVDF ist entgegen älterer Annahmen aufgrund seiner hohen Kristallinität sehr beständig in feuchtem Chlor. FKM ist in trockenem Chlor beständig, wird aber in feuchtem Chlor durch HClO angegriffen.
+
+3.3 Nicht-fluorierte Polyolefine und Vinyle (PE, PP, PVC)
+Grundsätzlich ungeeignet für kritische Chloranwendungen. Sie versagen in feuchtem Chlor durch chemischen Abbau, in flüssigem Chlor durch Quellen und in trockenem Chlor durch langfristige Versprödung.
+
+3.4 Edelstähle (z.B. 1.4404/316L)
+Exzellent in absolut trockenem Chlor. Extrem anfällig für lokale Korrosion (Lochfraß, Spaltkorrosion) bei Anwesenheit von Feuchtigkeit. Oberhalb von ca. 60°C besteht eine hohe Gefahr der Spannungsrisskorrosion (SpRK/SCC).
+
+3.5 Nickel-Basis-Legierungen (Hastelloy C-276, C-22)
+Die ultimative Wahl für kritische Anwendungen. Hoher Chrom- und Molybdängehalt sorgt für eine extrem stabile Passivschicht. Hastelloy C-22 ist C-276 in stark oxidierenden Medien überlegen.
+
+3.6 Nickel-Kupfer-Legierungen (Monel 400)
+Exzellent in trockenen, nicht-oxidierenden Medien. Da es kein Chrom enthält und keine Passivschicht bildet, versagt es schnell in oxidierenden Medien wie feuchtem Chlor.
+
+Kapitel IV: Die Rolle physikalischer und betrieblicher Parameter
+
+4.1 Temperatur
+Beschleunigt alle chemischen Korrosionsprozesse (RGT-Regel). Führt bei Thermoplasten zu einer drastischen Reduzierung der Druckfestigkeit (thermisches Derating).
+
+4.2 Druck und mechanische Spannung
+Interagieren stark mit der chemischen Umgebung. Führen zu Kriechen (Creep) und Kaltfluss bei Polymeren sowie zur gefährlichen Spannungsrisskorrosion (SpRK) bei Metallen.
+
+4.3 Vakuum
+Geringere Konzentration des angreifenden Gases verlangsamt chemische Angriffe. Die primäre mechanische Gefahr ist jedoch der Kollaps (Beulen) durch den äußeren atmosphärischen Druck.
+
+Kapitel V: Überarbeitete Zusammenfassung und praktische Empfehlungen
+
+• Regel 1: WASSER IST DER FEIND.
+• Regel 2: DIE C-F-BINDUNG IST DER SCHUTZ.
+• Regel 3: CHROM & MOLYBDÄN SIND DIE WÄCHTER.
+• Regel 4: MECHANIK UND PHYSIK SIND ENTSCHEIDEND.
+• Praxis-Tipp: Systeme nach jeder Öffnung gründlich mit trockenem Inertgas (z.B. Stickstoff) spülen, um Restfeuchte zu entfernen.
+
+Korrigierter Material-Check:
+• Immer exzellent: Hastelloy (insb. C-22), PTFE, FFKM.
+• Gut, auch bei Feuchtigkeit: PVDF.
+• Gut, aber NUR WENN ABSOLUT TROCKEN: Edelstahl, Monel, FKM.
+• Fast immer ungeeignet: PVC, PE, PP.
+
+Kapitel VI: Korrigierte Werkstoff-Bewertungsmatrix für Chlor-Anwendungen
+(Die detaillierte Matrix folgt hier im Originaldokument)
+
+Kapitel VII: Detaillierte Begründung für Werkstoffverhalten und Versagensmechanismen
+
+7.1 Die Hierarchie der Fluorpolymere
+FFKM ≈ PTFE > PVDF > FKM. Die Leistungsfähigkeit hängt von der Vollständigkeit der Fluorierung und der physikalischen Struktur (kristallin vs. amorph) ab.
+
+7.2 Die Falle der Polyolefine und des PVC
+Ihre Struktur aus angreifbaren C-H-Bindungen und ihre geringe mechanische Festigkeit machen sie zu einem unkalkulierbaren Sicherheitsrisiko in jeder kritischen Chloranwendung.
+
+7.3 Das Dilemma der Legierungsauswahl: Vorhersehbares vs. unvorhersehbares Versagen
+Monel versagt eher vorhersehbar durch gleichmäßige Flächenkorrosion. Edelstahl versagt oft unvorhersehbar und katastrophal durch hochlokalisierte Mechanismen wie Lochfraß oder SpRK, was ein wesentlich höheres Sicherheitsrisiko darstellt. Die Wahl von Hastelloy eliminiert dieses hochriskante Versagensprofil.
+
+Anhang: Liste der zitierten Quellen
+
+1. Analyse materialien.pdf
+2. Sicherheitshinweise zur Vermeidung von Chlorgasfreisetzung - GHC
+3. en.wikipedia.org. Zugriff am September 6, 2025, https://en.wikipedia.org/wiki/Hypochlorous_acid#:~:text=Addition%20of%20chlorine%20to%20water.H%2020%20%2B%202%20e
+4. Chapter 27 - Chlorine And Chlorine Alternatives - Veolia Water Technologies & Solutions
+5. Hypochlorous acid - Wikipedia
+6. Is the C-H bond stronger (bond energy) than the C-Cl bond? Why? Isn't the C-Cl bond polar? - Quora
+7. Bond strength: C-C vs C-H: r/Mcat - Reddit
+8. Why is the C-F bond enthalpy so high despite it being the most polar out of C-CI, C-Br and C-I bonds? - Reddit
+9. Fluorpolymere - Wikipedia
+10. Passivierung von Edelstahl - Chemische Oberflächenbehandlung - Härterei Blessing AG
+11. Passivierung von Edelstahl: Für verbesserte Haltbarkeit und Vielseitigkeit - RapidDirect
+12. What is Passivation? How Does Passivation Process Work? How To Passivate Stainless Steel Parts? - Best Technology
+13. Aktives Passivieren
+14. Legierungstechnische Aspekte bei nichtrostenden ... - HENKEL Epol
+15. Hastelloy C-22 vs C-276: Key Differences & Chemical Composition
+16. Korrosionsgefahren im Blick: Die verschiedenen Arten von Korrosion bei Edelstahl
+17. Werkstoffauswahl: Grundlagen & Methodik | Study Smarter
+18. Creep Resistance of CPVC Pipe Fittings - Knowledge - IFAN
+19. Creep properties - PVC
+20. PTFE O-rings | Materials explained simply | Sealing Academy
+21. PTFE and PFA - Similarities and Differences - Emerson
+22. Temperature Chart - Rubber Fab
+23. Thermoplastic Pipes - Strength Derating vs. Temperature
+24. CHLORIDE STRESS CORROSION CRACKING (CSCC) OF AUSTENITIC STAINLESS STEEL UNDER THERMAL INSULATION - ARPN Journal of Engineering and Applied Sciences
+25. Chloride Stress Corrosion Cracking - SSINA
+26. Mechanische Eigenschaften einfach erklärt - simpleclub
+27. Polyethylene chemical resistance - Braskem
+28. ENGINEERING BULLETIN #119 - Corrosion of Common Alloys in Dry Chlorine - Penflex
+29. Alloy selection for service in chlorine, hydrogen chloride and hydrochloric acid - Nickel Institute
+30. Korrosion durch Chlor und Chlorid in Kühltürmen? - aqua-Technik Beratungs GmbH
+31. Polyethylene Chemical Resistance Chart - CDF Corporation
+32. Chemical Compatibility Guide For Polyethylene Items Rating Key: - SpillTech
+33. Selection of stainless steels for handling chlorine (C12) and chlorine dioxide (CIO2)
+34. Teflon® PTFE - Chemical Compatibility Reference Chart
+35. Chemical Resistance | Zeus
+36. ptfe-beständigkeitsliste - tecno-plast
+37. Chemische Beständigkeit von PTFE und PTFE-Compounds mit den Füllstoffen: Glasfaser, Kohle, Graphit
+38. Chemical resistance, PVDF | Materials - Polyfluor
+39. Solef® PVDF - Solvay
+40. Processing Guide for Polymer Membranes | Solvay
+41. Viton™ compatibility with chemicals - J-Flex
+42. FKM (Fluorine Kautschuk Material) - Chemical Compatibility Chart
+43. FKM Chemical Resistance Guide - Mission Rubber
+44. Chemical resistance chart
+45. GF Chemical Resistance Chart | PDF | Nitric Acid - Scribd
+46. Chemical Resistance Chart: Medium Concentration PVC PE PP...
+47. STAINLESS STEEL FOR POTABLE WATER... - Nickel Institute
+48. Merkblatt 830 - Informationsstelle Edelstahl Rostfrei
+49. HASTELLOY C-276 alloy Datenblatt - Zapp
+50. Hastelloy C-276 (UNS N10276) Chemical Composition - Heanjia Super Metals
+51. Hastelloy C22 v C276 | Differences in Corrosion Resistance &... - Central States Industrial
+52. Monel 400 Tech Data - High Temp Metals
+53. Monel 400 UNS N04400 - High Performance Alloys
+54. super-metals.com
+55. Monel 400 corrosion characteristics in hydrofluoric acid (HF) - ResearchGate
+56. Monel 400 Corrosion Resistance Properties - Heanjia Super Metals
+57. Monel corrosion in seawater
+58. Schlussbericht - Dechema
+59. Chlorine-Induced High Temperature Corrosion: I. Metals and Alloys - A Review
+60. The implications of chlorine-associated corrosion on the operation of biomass-fired boilers - CDM
+61. PVC Dechlorination for Facilitating Plastic Chemical Recycling: A Systematic Literature Review of Technical Advances, Modeling and Assessment - MDPI
+62. Chemische Beständigkeit von Kunststoffen.indd - Prelon Dichtsystem GmbH
+63. Chemisch beständige Kunststoffe - Ensinger
+64. Temperature derating of PVC pipes for pressure applications
+65. Temperature derating of PVC pipes for pressure applications
+66. PVC's physical properties - ECVM - PVC.org
+67. What Is the Difference Between PTFE and Fluoroelastomer? - Julong Rubber
+68. Highest endurance at low cold flow. - Stronger security is required
+69. Kann Chlor Rost verursachen? - sk-whirlpool.de
+70. Korrosion und Korrosionsschutz in Hallenschwimmbädern: Bundesverband Feuerverzinken
+71. Beständigkeitstabelle - Paul Gothe GmbH
+72. FFKM (Perfluoroelastomer) - Chemical Resistance Chart - Blog - Darwin Microfluidics
+73. aqua-technik-gmbh.de
+74. 05 Chlor - ÖBFV
+75. Fluorkunststoffe >>> RCT Magazin - Reichelt Chemietechnik
+76. Hochleistungskunststoffe - Leistungspolymere Jürgen Bock GmbH
+77. Studie "Fluor: Praktisch, langlebig und giftig"
+78. Chemical & technical fluoroplastic properties - Adtech Polymer Engineering Ltd
+79. Chemical Resistance of Fluoropolymers - Holscot Advanced Polymers Ltd
+80. Why is a C-D bond stronger than a C-H bond? - Chemistry Stack Exchange
+81. Pooldoktor - Korrosion von Edelstahl
+82. Edelstahl passivieren für mehr Korrosionsschutz - plasmotion
+83. What is the Passivation Process? | Astro Pak
+84. Passivated Stainless Steel: All You Need to Know - SteelPRO Group
+85. Passivierung / Chromatierung - Max Schlötter GmbH & Co. KG
+86. Passivieren - Ateco Services AG
+87. NEM-Legierungen
+88. Rost an Edelstahl im Schwimmteich oder Pool - re-natur
+89. Warum auch Edelstahl rosten kann - Shop28
+90. Werkstoffauswahl: Methodik & Systematik - StudySmarter
+91. Chemische Beständigkeit von PVC, PE und PP - MCM-Systeme
+92. Beständigkeitstabelle - Burkert Austria GmbH
+93. PVC Chemical Resistance Guide | IPEX
+94. Chemische Beständigkeit, PVDF | Materialien - Polyfluor
+95. Beständigkeitstabelle
+96. PVDF Chemical Resistance Guide | IPEX
+97. Chemical-Compatibility-Chart.pdf - Max Spare
+98. EPDM & FKM Chemical Resistance Guide - Bradley Hughes
+99. Beständigkeitstabelle Edelstahl - 1.4301/1.4401 - Edelstahldiscounter GbR
+100. www.metalspiping.com
+101. Korrosionsverhalten metallischer und keramischer Werkstoffe in Prozeßgasen zur Herstellung von Solarsilizium - TIB
+102. The Impact of Chlorinated Water and Sun Exposure on the Durability and Performance of Swimwear Materials - PMC
+103. gfps-us-catalog-eps pressure piping systems-en.pdf
+104. Chemical Resistance Guide - Gilson Engineering Sales
+105. Chemical Compatibility Chart - LDPE, HDPE, PP, Teflon Resistance - CP Lab Safety
+106. EPDM & FKM Chemical Resistance Guide | IPEX
+107. FKM & EPDM Chemical Compatibility Charts - Utex Industries Inc
+108. Kalrez - Chemical Resistance and Fluid Compatability for O-Rings - Parr Instrument Company
+109. Elastomers Chemical Resistance & Kalrez Application Guide - DuPont
+110. DuPont™ Kalrez® Spectrum™ perfluoroelastomer parts
+111. Kalrez® Spectrum™ 7275 Double Seal Life in Chlorine Dioxide Service - DuPont
+112. Kalrez - Chemical Resistance and Fluid Compatability for O-Rings - Parr Instrument Company
+113. Dupont Material Compatibility General - Chemical - Resistance | PDF | Fluorine - Scribd
+114. Oil & Gas - Solvay
+115. Solef® PVDF - Design & Processing Guide - Solvay
+116. Polyethylene Chemical Compatibility Guide - Paramount Materials
+117. LDPE Chemical Compatibility Chart - CP Lab Safety
+118. Chemical Compatibility Guide for: Low Density Polyethylene Products
+119. Resistance of NICKEL and HIGH NICKEL ALLOYS to corrosion by HYDROCHLORIC ACID, HYDROGEN CHLORIDE and CHLORINE
+120. GF Piping Systems > worldwide at home - Cloudfront.net
+121. Pressure/Temperature Diagrams - GF Piping Systems
+122. Chemical Resistance of Plastics chart
+123. Chemical Resistance Chart - Plastics International
+124. HAYWARD - Chemical Resistance Guide
+125. Chemical resistance of plastics - KENDRION
+126. Chemical Resistance Tool - GF Piping Systems
+127. CHEMICAL RESISTANCE GUIDE
+128. Viton Chemical Compatibility Reference Chart
+129. Viton™ Brand Chemical Resistance Guide | Viton™ Fluoroelastomers
+130. Viton Fluid Resistance Guide - Plastomatic
+131. VITON® CHEMICAL COMPATIBILITY CHART - Chemtools
+132. Creep performance of PVC aged at temperature relatively close to glass transition temperature - ResearchGate
+133. Polyvinyl chloride chlorinated (PVC-C) - Peterss Sia
+134. PVC Properties - Vinidex Pty Ltd
+135. FAQ: Teflon Encapsulated O-Rings - Everything You Need to Know - M-Cor Inc.
+
+                </pre>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Feedback Modal -->
+    <div id="feedbackModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-75 invisible opacity-0 modal">
+        <div class="glass-pane rounded-lg shadow-xl w-full max-w-lg transform scale-95 modal-content">
+            <div class="p-6">
+                <div class="flex justify-between items-start">
+                    <h3 class="text-2xl font-bold text-white">Feedback & Verbesserungsvorschläge</h3>
+                    <button id="closeFeedbackModal" class="text-gray-400 hover:text-white text-3xl leading-none">&times;</button>
+                </div>
+                <form id="feedbackForm" class="mt-4">
+                    <label for="feedbackText" class="block text-sm font-medium text-gray-300 mb-2">Ihre Nachricht:</label>
+                    <textarea id="feedbackText" rows="6" class="w-full bg-gray-700 border border-gray-600 text-white rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5" placeholder="Geben Sie hier Ihr Feedback ein..."></textarea>
+                    <div id="feedback-confirmation" class="text-green-400 text-sm mt-2 h-4"></div>
+                    <div class="mt-4 text-right">
+                        <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors">Feedback senden</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // --- DATA SECTION ---
+        const materialData = {
+            "PTFE": {
+                summary: "Der Fluor-Champion. Chemisch inert, aber anfällig für Kaltfluss.",
+                trockenes_chlorgas: { rating: 10, comment: "Chemisch inert" },
+                feuchtes_chlorgas: { rating: 10, comment: "Chemisch inert" },
+                fluessiges_chlor: { rating: 10, comment: "Chemisch inert, aber Permeation beachten" },
+                gesaettigte_chlorloesung: { rating: 10, comment: "Chemisch inert" },
+                einfluss_temp: { rating: 9, comment: "Hohe Temp.-Best., aber Festigkeitsabfall"},
+                einfluss_kaelte: { rating: 10, comment: "Exzellente Kälteflexibilität" },
+                ueberdruck: { rating: 6, comment: "Kaltfluss (Cold Flow) führt zu Dichtkraftverlust" },
+                vakuum: { rating: 10, comment: "Sehr gut geeignet" },
+                details: `
+                    <p>Gehört zu den "Fluor-Champions". Die vollständige Abschirmung der Polymerketten durch extrem stabile C-F-Bindungen macht es chemisch inert gegenüber allen Formen von Chlor.</p>
+                    <p><strong>Stärken:</strong> Nahezu universelle chemische Beständigkeit. Exzellente Kälteflexibilität.</p>
+                    <p><strong>Schwächen / Risiken:</strong>
+                        <ul>
+                            <li><strong>Kaltfluss (Cold Flow):</strong> Neigt unter Druckbelastung (z.B. bei Dichtungen) zu permanenter Verformung, was zu Dichtkraftverlust und Leckagen führen kann.</li>
+                            <li><strong>Permeabilität:</strong> Kleine Gasmoleküle wie Chlor können durch die PTFE-Schicht diffundieren. Bei ausgekleideten Bauteilen kann dies zu Korrosion am metallischen Trägermaterial führen, wenn Feuchtigkeit vorhanden ist.</li>
+                        </ul>
+                    </p>`
+            },
+            "FFKM": {
+                summary: "Der elastische Fluor-Champion. Chemisch inert mit exzellenter Dichtwirkung.",
+                trockenes_chlorgas: { rating: 10, comment: "Chemisch inert" },
+                feuchtes_chlorgas: { rating: 10, comment: "Chemisch inert" },
+                fluessiges_chlor: { rating: 10, comment: "Chemisch inert" },
+                gesaettigte_chlorloesung: { rating: 10, comment: "Chemisch inert" },
+                einfluss_temp: { rating: 9, comment: "Hervorragende Heiß- u. Kältebeständigkeit"},
+                einfluss_kaelte: { rating: 9, comment: "Gute Kältebeständigkeit (Typ beachten)" },
+                ueberdruck: { rating: 9, comment: "Gute Druckstandfestigkeit für Elastomere" },
+                vakuum: { rating: 10, comment: "Sehr gut geeignet" },
+                details: `
+                    <p>Wie PTFE ein vollständig fluoriertes Polymer und damit chemisch unangreifbar. Der Hauptunterschied liegt in den mechanischen Eigenschaften.</p>
+                    <p><strong>Stärken:</strong>
+                        <ul>
+                            <li>Universelle chemische Beständigkeit wie PTFE.</li>
+                            <li>Exzellente elastische Rückstellung und Kriechbeständigkeit, ideal für Dichtungen.</li>
+                            <li>Höchste thermische Stabilität und sehr gute Kälteflexibilität (je nach Typ).</li>
+                        </ul>
+                    </p>
+                    <p><strong>Schwächen:</strong> Sehr hohe Kosten.</p>`
+            },
+            "PVDF": {
+                summary: "Der kristalline Allrounder. Stark in feuchtem Chlor, aber kälteempfindlich.",
+                trockenes_chlorgas: { rating: 10, comment: "Kein Angriff" },
+                feuchtes_chlorgas: { rating: 9, comment: "Hohe Beständigkeit" },
+                fluessiges_chlor: { rating: 7, comment: "Geringes Aufquellen möglich" },
+                gesaettigte_chlorloesung: { rating: 8, comment: "Gute Beständigkeit" },
+                einfluss_temp: { rating: 8, comment: "Guter Festigkeitserhalt bis ca. 100°C"},
+                einfluss_kaelte: { rating: 3, comment: "Versprödung unter ca. -20°C" },
+                ueberdruck: { rating: 9, comment: "Gute mech. Festigkeit & Druckfestigkeit" },
+                vakuum: { rating: 10, comment: "Sehr gut geeignet" },
+                details: `
+                    <p>Ein teilfluoriertes, hochkristallines Thermoplast. Die wichtigste Korrektur gegenüber älteren Annahmen.</p>
+                    <p><strong>Stärken:</strong>
+                        <ul>
+                            <li><strong>Exzellent in feuchtem Chlor:</strong> Entgegen veralteter Meinungen verleiht die dichte, hochkristalline Molekülstruktur eine außergewöhnliche Barrierewirkung und Stabilität, die den Angriff auf die vorhandenen C-H-Bindungen stark behindert.</li>
+                            <li>Robust und oft kostengünstiger als vollfluorierte Kunststoffe für starre Bauteile wie Rohre, Armaturen und Pumpengehäuse.</li>
+                        </ul>
+                    </p>
+                    <p><strong>Schwächen / Risiken:</strong>
+                        <ul>
+                           <li><strong>Kälteversprödung:</strong> Unterhalb von ca. -20°C nimmt die Zähigkeit stark ab, das Material wird spröde und anfällig für mechanisches Versagen.</li>
+                        </ul>
+                    </p>
+                    <p><strong>Bewertung:</strong> Eine hervorragend geeignete Wahl für die meisten feuchten Chloranwendungen im positiven Temperaturbereich.</p>`
+            },
+            "FKM": {
+                summary: "Der Spezialist für trockene Hitze. Flexibel, aber begrenzt in feuchtem Chlor.",
+                trockenes_chlorgas: { rating: 10, comment: "Kein Angriff" },
+                feuchtes_chlorgas: { rating: 3, comment: "Angriff auf C-H & Füllstoffe; bedingt geeignet" },
+                fluessiges_chlor: { rating: 4, comment: "Starkes Aufquellen" },
+                gesaettigte_chlorloesung: { rating: 1, comment: "Schnelle Zersetzung" },
+                einfluss_temp: { rating: 8, comment: "Gute Hitzebeständigkeit; Typ beachten"},
+                einfluss_kaelte: { rating: 2, comment: "Versprödung, erreicht Glastemperatur" },
+                ueberdruck: { rating: 8, comment: "Gute Druckstandfestigkeit für Elastomere" },
+                vakuum: { rating: 10, comment: "Sehr gut geeignet" },
+                 details: `
+                    <p>Ein teilfluoriertes Elastomer mit amorpher Struktur.</p>
+                    <p><strong>Stärken:</strong>
+                        <ul>
+                            <li>Ausgezeichnete Beständigkeit in <strong>trockenem</strong> Chlorgas.</li>
+                            <li>Gute Elastizität für Dichtungsanwendungen bei Normal- und Hochtemperatur.</li>
+                        </ul>
+                    </p>
+                     <p><strong>Schwächen:</strong>
+                        <ul>
+                            <li><strong>Begrenzt in feuchtem Chlor:</strong> Die exponierten C-H-Bindungen werden von Hypochloriger Säure angegriffen, was zu Degradation führt.</li>
+                            <li><strong>Flüssiges Chlor:</strong> Wirkt als Lösungsmittel und führt zu starkem Aufquellen und Verlust der mechanischen Eigenschaften.</li>
+                            <li><strong>Tieftemperaturen:</strong> Erreicht seine Glasübergangstemperatur (typ. -15°C bis -20°C), wird hart, verliert die Elastizität und versagt als Dichtung.</li>
+                        </ul>
+                    </p>
+                    <p><strong>Einsatz:</strong> Nur für absolut trockene Systeme oder Anwendungen mit begrenzter Exposition gegenüber feuchtem Chlor im empfohlenen Temperaturbereich.</p>`
+            },
+            "Edelstahl (316L)": {
+                summary: "Die trügerische Festung. Exzellent in trockenem Chlor, hochriskant bei Feuchtigkeit (SpRK).",
+                trockenes_chlorgas: { rating: 9, comment: "Sehr geringe Reaktion" },
+                feuchtes_chlorgas: { rating: 2, comment: "Hohes Risiko für Lochfraßkorrosion" },
+                fluessiges_chlor: { rating: 9, comment: "Sehr geringe Reaktion" },
+                gesaettigte_chlorloesung: { rating: 0, comment: "Katastrophale Korrosion" },
+                einfluss_temp: { rating: 4, comment: "Beschl. Korrosion; SpRK-Gefahr > 60°C" },
+                einfluss_kaelte: { rating: 10, comment: "Keine Versprödung, für Kryo geeignet" },
+                ueberdruck: { rating: 5, comment: "Hohes Risiko für SpRK bei T > 60°C" },
+                vakuum: { rating: 10, comment: "Sehr gut geeignet" },
+                 details: `
+                    <p>Die "trügerische Festung". Die Leistung hängt absolut kritisch von der Abwesenheit von Feuchtigkeit ab.</p>
+                    <p><strong>Stärken:</strong> Exzellente Leistung und mechanische Festigkeit in <strong>absolut trockenem</strong> Chlor. Exzellente Tieftemperatureigenschaften (keine Versprödung).</p>
+                    <p><strong>Schwächen / Risiken:</strong>
+                        <ul>
+                            <li><strong>Feuchtigkeit:</strong> Sobald Wasser vorhanden ist, greifen die entstehenden Chlorid-Ionen die Passivschicht an, was zu <strong>Lochfraßkorrosion</strong> führt.</li>
+                            <li><strong>Spannungsrisskorrosion (SpRK/SCC):</strong> Dies ist der gefährlichste Versagensmechanismus. Bei Temperaturen <strong>über ca. 60°C</strong> in Verbindung mit Chloriden und Zugspannung kann es zu plötzlichem, sprödem und katastrophalem Versagen kommen, oft ohne Vorwarnung.</li>
+                        </ul>
+                    </p>
+                    <p><strong>Fazit:</strong> Das unvorhersehbare, katastrophale Versagen durch SpRK macht Edelstahl zu einer hochriskanten Wahl in allen nicht-trockenen Chloranwendungen.</p>`
+            },
+            "Hastelloy (C-22)": {
+                summary: "Die ultimative Wahl. Nahezu immun gegen alle Formen von Chlor-Korrosion.",
+                trockenes_chlorgas: { rating: 10, comment: "Perfekt passiv" },
+                feuchtes_chlorgas: { rating: 10, comment: "Immun gegen Chlorid-Angriff" },
+                fluessiges_chlor: { rating: 10, comment: "Perfekt passiv" },
+                gesaettigte_chlorloesung: { rating: 10, comment: "Dafür entwickelt" },
+                einfluss_temp: { rating: 10, comment: "Für Hochtemperatureinsatz gebaut"},
+                einfluss_kaelte: { rating: 10, comment: "Keine Versprödung, für Kryo geeignet" },
+                ueberdruck: { rating: 10, comment: "Extrem druckfest" },
+                vakuum: { rating: 10, comment: "Sehr gut geeignet" },
+                 details: `
+                    <p>Die ultimative Werkstoffwahl für kritische Chlor-Anwendungen.</p>
+                    <p><strong>Stärken:</strong>
+                        <ul>
+                            <li><strong>Überlegene Passivschicht:</strong> Der hohe Chrom- (ca. 22%) und Molybdänanteil (ca. 13%) erzeugt eine extrem stabile und widerstandsfähige Passivschicht.</li>
+                            <li><strong>Immun gegen SpRK:</strong> Bietet Sicherheit gegen den gefährlichsten Versagensmechanismus von Edelstahl.</li>
+                            <li><strong>Universell einsetzbar:</strong> Bietet exzellente Beständigkeit in allen hier betrachteten Chlor-Medien, auch bei extrem hohen und tiefen Temperaturen. C-22 ist C-276 in stark oxidierenden Medien überlegen.</li>
+                        </ul>
+                    </p>
+                    <p><strong>Fazit:</strong> Die technisch sicherste Wahl zur Eliminierung eines hochriskanten, unvorhersehbaren Versagensmodus.</p>`
+            },
+            "Monel (400)": {
+                summary: "Spezialist für reduzierende Medien. Stark in trockenem Chlor, versagt bei Oxidation.",
+                trockenes_chlorgas: { rating: 10, comment: "Kein Angriff" },
+                feuchtes_chlorgas: { rating: 1, comment: "Schnelle oxidierende Korrosion" },
+                fluessiges_chlor: { rating: 10, comment: "Kein Angriff" },
+                gesaettigte_chlorloesung: { rating: 0, comment: "Katastrophale Korrosion" },
+                einfluss_temp: { rating: 2, comment: "Stark beschl. oxidierende Korrosion"},
+                einfluss_kaelte: { rating: 10, comment: "Keine Versprödung, für Kryo geeignet" },
+                ueberdruck: { rating: 10, comment: "Sehr druckfest" },
+                vakuum: { rating: 10, comment: "Sehr gut geeignet" },
+                 details: `
+                    <p>Eine Speziallegierung, deren Eignung stark von den Bedingungen abhängt.</p>
+                    <p><strong>Stärken:</strong> Exzellente Beständigkeit in <strong>trockenen, nicht-oxidierenden</strong> Medien wie trockenem Chlorgas. Sehr gute Tieftemperatureigenschaften.</p>
+                    <p><strong>Schwächen:</strong>
+                        <ul>
+                            <li><strong>Achillesferse: Oxidierende Medien.</strong> Monel enthält kein Chrom und bildet keine Passivschicht. Sobald Oxidationsmittel wie Hypochlorige Säure (aus feuchtem Chlor) vorhanden sind, wird es schnell und massiv angegriffen.</li>
+                        </ul>
+                    </p>
+                    <p><strong>Versagensmodus:</strong> Im Gegensatz zu Edelstahl versagt Monel eher durch vorhersagbare, allgemeine Flächenkorrosion, nicht durch plötzlichen Riss.</p>`
+            },
+            "PVC": {
+                summary: "Kostengünstiger Standard. Für kritische Chloranwendungen ein Sicherheitsrisiko.",
+                trockenes_chlorgas: { rating: 6, comment: "Langsame Degradation" },
+                feuchtes_chlorgas: { rating: 2, comment: "Zerstörung der C-H" },
+                fluessiges_chlor: { rating: 2, comment: "Starkes Quellen/Lösen" },
+                gesaettigte_chlorloesung: { rating: 0, comment: "Sofortige Zersetzung" },
+                einfluss_temp: { rating: 2, comment: "Starker Festigkeitsverlust, Druck-Derating"},
+                einfluss_kaelte: { rating: 2, comment: "Starke Versprödung bei Kälte" },
+                ueberdruck: { rating: 2, comment: "Starke Kriechneigung" },
+                vakuum: { rating: 8, comment: "Geringe Konzentration" },
+                 details: `
+                    <p>Diese kostengünstigen Kunststoffe sind aufgrund ihrer chemischen Struktur und geringen mechanischen Festigkeit für kritische Chloranwendungen ungeeignet und stellen ein Sicherheitsrisiko dar.</p>
+                    <p><strong>Versagensmechanismen:</strong>
+                        <ul>
+                            <li><strong>Trockenes Chlor:</strong> Langsame, aber stetige oxidative Degradation führt zu Versprödung.</li>
+                            <li><strong>Feuchtes Chlor:</strong> Schneller chemischer Abbau durch Hypochlorige Säure.</li>
+                            <li><strong>Flüssiges Chlor:</strong> Wirkt als starkes Lösungsmittel, führt zu Aufquellen, Erweichen und massivem Verlust der mechanischen Festigkeit.</li>
+                            <li><strong>Temperatur (hoch):</strong> Drastischer Abfall der Druckfestigkeit (thermisches Derating). Ein PVC-Rohr für 10 bar bei 20°C darf bei 60°C nur noch mit 2 bar betrieben werden.</li>
+                            <li><strong>Temperatur (tief):</strong> Starke Versprödung unter 0°C, was zu schlagartigem Versagen führen kann.</li>
+                        </ul>
+                    </p>
+                     <p><strong>Fazit:</strong> Verwendung sollte auf temporäre, unkritische Anwendungen beschränkt bleiben.</p>`
+            },
+        };
+
+        const allQuizQuestions = [
+            // Level: Beginner (Grundlagen)
+            { level: 'beginner', question: "Was ist laut Regel 1 der Hauptkatalysator für Korrosion in Chlorsystemen?", options: ["Hoher Druck", "Hohe Temperatur", "Feuchtigkeit (Wasser)", "UV-Strahlung"], answer: "Feuchtigkeit (Wasser)", explanation: "Regel 1 besagt: WASSER IST DER FEIND. Es reagiert mit Chlor zu hochaggressiven Säuren." },
+            { level: 'beginner', question: "Welche Eigenschaft macht vollfluorierte Polymere wie PTFE chemisch so beständig?", options: ["Ihre Farbe", "Ihre Dichte", "Die stabile Kohlenstoff-Fluor-Bindung (C-F)", "Ihre Härte"], answer: "Die stabile Kohlenstoff-Fluor-Bindung (C-F)", explanation: "Regel 2: DIE C-F-BINDUNG IST DER SCHUTZ. Ihre hohe Bindungsenergie macht sie unangreifbar." },
+            { level: 'beginner', question: "Welche zwei Elemente sind laut Regel 3 die 'Wächter' der Passivschicht bei Legierungen?", options: ["Eisen und Kohlenstoff", "Kupfer und Zinn", "Chrom und Molybdän", "Aluminium und Magnesium"], answer: "Chrom und Molybdän", explanation: "Regel 3: CHROM & MOLYBDÄN SIND DIE WÄCHTER. Sie bilden und stabilisieren die schützende Passivschicht." },
+            { level: 'beginner', question: "Warum ist chemische Beständigkeit allein nicht ausreichend für die Materialauswahl (Regel 4)?", options: ["Weil die Farbe nicht passt", "Weil mechanische und physikalische Eigenschaften entscheidend sind", "Weil das Material zu teuer ist", "Weil es nicht verfügbar ist"], answer: "Weil mechanische und physikalische Eigenschaften entscheidend sind", explanation: "Regel 4: MECHANIK & PHYSIK SIND ENTSCHEIDEND. Druck- und Temperaturbeständigkeit sind ebenso wichtig." },
+            { level: 'beginner', question: "Welche zwei aggressiven Säuren entstehen bei der Reaktion von Chlor mit Wasser?", options: ["Schwefelsäure und Salpetersäure", "Salzsäure und Hypochlorige Säure", "Essigsäure und Ameisensäure", "Flusssäure und Salzsäure"], answer: "Salzsäure und Hypochlorige Säure", explanation: "Die Reaktion Cl2 + H2O ⇌ HCl + HClO erzeugt Salzsäure (liefert Chlorid-Ionen) und Hypochlorige Säure (starkes Oxidationsmittel)." },
+            { level: 'beginner', question: "Welcher Werkstoff gilt als 'Fluor-Champion' und ist chemisch nahezu unangreifbar?", options: ["PVC", "PE", "PTFE", "PP"], answer: "PTFE", explanation: "Vollfluorierte Polymere wie PTFE und FFKM gelten aufgrund der C-F-Bindung als die chemisch beständigsten Kunststoffe." },
+            { level: 'beginner', question: "Welcher Werkstoff ist als die 'trügerische Festung' bekannt, weil er in trockenem Chlor exzellent, in feuchtem aber sehr anfällig ist?", options: ["Hastelloy", "Titan", "Edelstahl", "Monel"], answer: "Edelstahl", explanation: "Edelstahl ist in trockenem Chlor sehr gut, versagt aber bei Feuchtigkeit durch lokale Korrosionsmechanismen." },
+            { level: 'beginner', question: "Welcher der folgenden Werkstoffe ist für kritische Chloranwendungen fast immer ungeeignet?", options: ["Hastelloy C-22", "PTFE", "FFKM", "PVC"], answer: "PVC", explanation: "Werkstoffe wie PVC, PE und PP sind aufgrund ihrer chemischen Struktur und geringen mechanischen Festigkeit für anspruchsvolle Chloranwendungen ungeeignet." },
+            { level: 'beginner', question: "Was ist die Achillesferse der Legierung Monel 400?", options: ["Tiefe Temperaturen", "Hoher Druck", "Nicht-oxidierende Säuren", "Oxidierende Medien"], answer: "Oxidierende Medien", explanation: "Da Monel kein Chrom zur Passivierung enthält, wird es von oxidierenden Medien (wie feuchtem Chlor, das HClO bildet) schnell und massiv angegriffen." },
+            { level: 'beginner', question: "Was ist die Hauptgefahr für den Eintrag von Feuchtigkeit in ein trockenes Chlorsystem?", options: [" Diffusion durch die Rohrwand", "Leckagen und unsachgemäße Wartung", "Chemische Reaktionen im Gas", " Statische Aufladung"], answer: "Leckagen und unsachgemäße Wartung", explanation: "Praxis-Tipp: Die größte Gefahr sind Leckagen oder unzureichende Spülprozesse nach Wartungsarbeiten." },
+            
+            // Level: Fortgeschrittener (Mechanismen & Vergleiche)
+            { level: 'advanced', question: "Was ist der primäre Angreifer auf die C-H-Bindungen in Polymeren, wenn feuchtes Chlorgas vorhanden ist?", options: ["Salzsäure (HCl)", "Chlorgas (Cl2)", "Hypochlorige Säure (HClO)", "Chlorid-Ionen (Cl-)"], answer: "Hypochlorige Säure (HClO)", explanation: "Hypochlorige Säure ist ein extrem starkes Oxidationsmittel, das die energetisch schwächeren C-H-Bindungen direkt angreift und zu Kettenabbau führt." },
+            { level: 'advanced', question: "Welches Phänomen ist eine kritische Schwäche von PTFE in Dichtungsanwendungen unter Druck?", options: ["Kälteversprödung", "Kaltfluss (Cold Flow)", "Oxidative Degradation", "Permeation"], answer: "Kaltfluss (Cold Flow)", explanation: "Kaltfluss ist die permanente Verformung unter Last, die bei PTFE-Dichtungen zu einem Verlust der Dichtkraft und zu Leckagen führen kann." },
+            { level: 'advanced', question: "Was bedeutet ein hoher PREN-Wert (Pitting Resistance Equivalent Number) für eine Legierung?", options: ["Höhere Zugfestigkeit", "Bessere Schweißbarkeit", "Höherer Widerstand gegen Lochfraß", "Geringere Dichte"], answer: "Höherer Widerstand gegen Lochfraß", explanation: "Der PREN-Wert ist ein Maß für die Beständigkeit einer Legierung gegen Lochfraßkorrosion durch Chloride. Je höher der Wert, desto beständiger ist das Material." },
+            { level: 'advanced', question: "Warum versagt Monel 400 in feuchtem, oxidierendem Chlorgas schnell?", options: ["Es hat einen zu hohen Kupferanteil", "Es enthält kein Chrom zur Bildung einer Passivschicht", "Es ist zu weich für diese Anwendung", "Es reagiert direkt mit Wasser"], answer: "Es enthält kein Chrom zur Bildung einer Passivschicht", explanation: "Monel ist eine Nickel-Kupfer-Legierung ohne Chrom. Daher kann es keine schützende Chromoxid-Passivschicht ausbilden und wird von oxidierenden Medien wie feuchtem Chlor direkt angegriffen." },
+            { level: 'advanced', question: "Was ist neben dem chemischen Angriff der primäre Versagensmechanismus für PE in *flüssigem* Chlor?", options: ["Versprödung durch Kälte", "Lösungsmittelwirkung (Quellen/Erweichen)", "UV-Degradation", "Hydrolyse"], answer: "Lösungsmittelwirkung (Quellen/Erweichen)", explanation: "Flüssiges Chlor ist ein potentes unpolares Lösungsmittel, das in Polymere wie PE und PP diffundiert. Dies führt zu Aufquellen, Erweichung und einem dramatischen Verlust der mechanischen Festigkeit." },
+            { level: 'advanced', question: "Was ist die Hauptfunktion von Molybdän in korrosionsbeständigen Legierungen für den Chloreinsatz?", options: ["Erhöhung der Härte", "Verbesserung der elektrischen Leitfähigkeit", "Stabilisierung der Passivschicht gegen Chlorid-Angriff", "Reduzierung des Gewichts"], answer: "Stabilisierung der Passivschicht gegen Chlorid-Angriff", explanation: "Molybdän wird in die Chromoxid-Schicht eingebaut, erhöht deren Widerstand gegen lokale Angriffe durch Chlorid-Ionen und fördert die schnelle Selbstheilung (Repassivierung)." },
+            { level: 'advanced', question: "Was ist der entscheidende *mechanische* Vorteil von FFKM gegenüber PTFE für eine Dichtung?", options: ["Höhere Temperaturbeständigkeit", "Bessere chemische Beständigkeit", "Bessere elastische Rückstellung und Kriechfestigkeit", "Geringere Kosten"], answer: "Bessere elastische Rückstellung und Kriechfestigkeit", explanation: "Während beide chemisch inert sind, ist FFKM ein Elastomer, das seine Dichtkraft beibehält. PTFE ist ein Thermoplast, der zum Kaltfluss neigt und seine Pressung verlieren kann." },
+            { level: 'advanced', question: "Wie unterscheidet sich der typische Versagensmodus von Edelstahl in feuchtem Chlor von dem von Monel?", options: ["Edelstahl korrodiert gleichmäßiger", "Edelstahls Versagen ist unvorhersehbar und lokal (Lochfraß/SpRK)", "Monel versagt durch Rissbildung", "Es gibt keinen Unterschied"], answer: "Edelstahls Versagen ist unvorhersehbar und lokal (Lochfraß/SpRK)", explanation: "Edelstahl versagt oft plötzlich durch Lochfraß oder SpRK, was ein hohes Sicherheitsrisiko darstellt. Monel korrodiert eher gleichmäßig (Flächenkorrosion), was vorhersehbarer ist." },
+            { level: 'advanced', question: "Was passiert mit PE oder PP bei Langzeitkontakt mit *trockenem* Chlorgas?", options: ["Nichts, sie sind vollständig beständig", "Sie quellen stark auf", "Sie lösen sich auf", "Langsame oxidative Degradation und Versprödung"], answer: "Langsame oxidative Degradation und Versprödung", explanation: "Obwohl die Reaktion langsam ist, greift trockenes Chlorgas als starkes Oxidationsmittel diese Polymere an, was langfristig zu Versprödung und mechanischem Versagen führt." },
+            { level: 'advanced', question: "Was ist die primäre *mechanische* Gefahr für eine Rohrleitung im Vakuumbetrieb?", options: ["Bersten durch Innendruck", "Korrosion durch geringe Konzentration", "Kollaps (Beulen) durch den äußeren atmosphärischen Druck", "Ermüdung durch Vibration"], answer: "Kollaps (Beulen) durch den äußeren atmosphärischen Druck", explanation: "Im Vakuum wirkt der äußere atmosphärischen Druck auf die Komponente. Die Auslegung muss daher auf Steifigkeit und Stabilität gegen Kollaps (Beulen) abzielen." },
+            { level: 'advanced', question: "Warum ist Hypochlorige Säure (HClO) ein aggressiveres Oxidationsmittel als Chlorgas (Cl2)?", options: ["Sie hat eine höhere Dichte", "Sie hat ein höheres Standard-Redoxpotential", "Sie ist eine stärkere Säure", "Sie enthält mehr Chloratome"], answer: "Sie hat ein höheres Standard-Redoxpotential", explanation: "Das Redoxpotential von HClO (+1.63V) ist höher als das von Cl2 (+1.36V), was ein direktes Maß für ihre gesteigerte Fähigkeit ist, Elektronen zu entziehen und Materialien chemisch zu zersetzen." },
+            { level: 'advanced', question: "Welcher dieser Kunststoffe zeigt im Vergleich zu PE oder PP ein geringeres Kriechverhalten (Creep)?", options: ["PVC", "PS (Polystyrol)", "ABS", "PC (Polycarbonat)"], answer: "PVC", explanation: "PVC weist ein geringeres Kriechverhalten auf, was zu einer höheren Langzeitfestigkeit bei Raumtemperatur führt, insbesondere in Druckrohranwendungen." },
+            { level: 'advanced', question: "Was ist die primäre Rolle von Chlorid-Ionen (Cl-) bei der Korrosion von Edelstahl?", options: ["Sie reagieren direkt mit dem Eisen", "Sie durchdringen und destabilisieren die schützende Passivschicht", "Sie erhöhen den pH-Wert der Lösung", "Sie wirken als Oxidationsmittel"], answer: "Sie durchdringen und destabilisieren die schützende Passivschicht", explanation: "Aufgrund ihrer geringen Größe und hohen Mobilität können Chlorid-Ionen die Chromoxid-Passivschicht an Schwachstellen lokal durchbrechen und Lochfraß initiieren." },
+            { level: 'advanced', question: "Warum ist eine gesättigte wässrige Chlorlösung der absolute 'Worst-Case' für die meisten Materialien?", options: ["Wegen des hohen Drucks", "Wegen der extremen Temperatur", "Wegen der maximalen und konstanten Konzentration von HCl und HClO", "Weil sie radioaktiv ist"], answer: "Wegen der maximalen und konstanten Konzentration von HCl und HClO", explanation: "In dieser Phase steht die maximale Konzentration der aggressiven Säuren permanent an der Werkstoffoberfläche zur Verfügung, was die Selbstheilungsmechanismen überfordert." },
+            { level: 'advanced', question: "Was besagt die RGT-Regel (Reaktionsgeschwindigkeit-Temperatur-Regel) qualitativ?", options: ["Die Reaktionsgeschwindigkeit halbiert sich pro 10°C", "Die Reaktionsgeschwindigkeit verdoppelt bis verdreifacht sich pro 10°C", "Die Reaktionsgeschwindigkeit bleibt konstant", "Die Reaktionsgeschwindigkeit sinkt linear mit der Temperatur"], answer: "Die Reaktionsgeschwindigkeit verdoppelt bis verdreifacht sich pro 10°C", explanation: "Die RGT-Regel ist eine Faustformel, die besagt, dass eine Temperaturerhöhung um 10°C die Geschwindigkeit chemischer Reaktionen, einschließlich Korrosion, stark beschleunigt." },
+            { level: 'advanced', question: "Was ist eine wesentliche Eigenschaft der Passivschicht auf Edelstahl?", options: ["Sie ist dick und gelblich", "Sie ist rau und porös", "Sie ist extrem dünn und für das Auge unsichtbar", "Sie ist elektrisch leitend"], answer: "Sie ist extrem dünn und für das Auge unsichtbar", explanation: "Die spontan gebildete Chromoxid-Schicht ist nur wenige Nanometer dick und transparent, bildet aber eine effektive kinetische Barriere gegen Korrosion." },
+            { level: 'advanced', question: "Welches Gas wird typischerweise zum Spülen von Chlorsystemen nach Wartungsarbeiten verwendet, um Restfeuchte zu entfernen?", options: ["Sauerstoff", "Druckluft", "Trockener Stickstoff", "Wasserdampf"], answer: "Trockener Stickstoff", explanation: "Systeme müssen gründlich mit einem trockenen Inertgas wie Stickstoff gespült werden, um jegliche Feuchtigkeit zu entfernen, die sonst zu schwerer Korrosion führen würde." },
+            { level: 'advanced', question: "Was ist der primäre Angreifer auf die Passivschicht von Metallen in feuchtem Chlor?", options: ["Hypochlorige Säure (HClO)", "Wasser (H2O)", "Chlorid-Ionen (Cl-)", "Das Chlormolekül (Cl2)"], answer: "Chlorid-Ionen (Cl-)", explanation: "Die aus der Salzsäure stammenden, kleinen und mobilen Chlorid-Ionen sind die Hauptverursacher für die lokale Zerstörung der Passivschicht." },
+            { level: 'advanced', question: "Welcher Kunststoff ist besonders anfällig für 'thermisches Derating'?", options: ["FFKM", "PTFE", "PVC", "Hastelloy"], answer: "PVC", explanation: "Alle Thermoplaste sind betroffen, aber bei PVC ist der Abfall der Druckfestigkeit besonders dramatisch, was bei der Auslegung von Rohrleitungen zwingend berücksichtigt werden muss." },
+            { level: 'advanced', question: "Welcher Versagensmechanismus wird durch die synergistische Wirkung von Zugspannung und einem spezifischen korrosiven Medium verursacht?", options: ["Kriechen (Creep)", "Lochfraßkorrosion", "Spannungsrisskorrosion (SpRK/SCC)", "Erosion"], answer: "Spannungsrisskorrosion (SpRK/SCC)", explanation: "Spannungsrisskorrosion ist ein besonders heimtückischer Mechanismus, der zu sprödem Bruch ohne nennenswerten Materialabtrag führen kann, wenn diese beiden Faktoren zusammenwirken." },
+
+            // Level: Erfahrener (Quantitative & Spezifische Details)
+            { level: 'experienced', question: "Ab welcher Temperatur wird das Risiko für Spannungsrisskorrosion (SpRK/SCC) bei Edelstahl (316L) in chloridhaltigen Medien signifikant?", options: ["40°C", "100°C", "60°C", "80°C"], answer: "60°C", explanation: "Ca. 60°C gilt als die kritische Temperaturschwelle, oberhalb derer das synergistische Wirken von Zugspannung und Chloriden zu SpRK führen kann." },
+            { level: 'experienced', question: "Welches Element in Hastelloy C-22 ist entscheidend für die überlegene Beständigkeit in stark oxidierenden Medien im Vergleich zu C-276?", options: ["Ein höherer Molybdän-Anteil", "Ein höherer Chrom-Anteil", "Ein höherer Nickel-Anteil", "Ein höherer Kupfer-Anteil"], answer: "Ein höherer Chrom-Anteil", explanation: "Hastelloy C-22 hat mit ca. 22% einen signifikant höheren Chromanteil als C-276 (ca. 16%), was die Stabilität der Passivschicht in stark oxidierenden Medien noch weiter verbessert." },
+            { level: 'experienced', question: "Ein PVC-Rohr ist für 10 bar bei 20°C ausgelegt. Welchen maximalen Druck hält es bei 60°C aus?", options: ["10 bar", "5 bar", "8 bar", "2 bar"], answer: "2 bar", explanation: "Thermoplaste wie PVC unterliegen einem starken thermischen Derating. Bei 60°C sinkt die Druckfestigkeit von PVC auf ca. 20% des ursprünglichen Wertes (10 bar * 0.20 = 2 bar)." },
+            { level: 'experienced', question: "Wie hoch ist die ungefähre Bindungsenergie der C-F-Bindung (Kohlenstoff-Fluor)?", options: ["413 kJ/mol", "346 kJ/mol", "485 kJ/mol", "339 kJ/mol"], answer: "485 kJ/mol", explanation: "Die C-F-Bindung hat mit ca. 485 kJ/mol eine der höchsten Energien einer Einfachbindung, was vollfluorierten Polymeren ihre extreme chemische Stabilität verleiht." },
+            { level: 'experienced', question: "Welches versteckte Risiko besteht bei der Verwendung von PTFE als Auskleidung für Stahlrohre?", options: ["PTFE kann bei hohen Drücken brechen", "PTFE löst sich in trockenem Chlor auf", "Chlorgas kann durch PTFE diffundieren und das Stahlrohr korrodieren", "PTFE wird unter Vakuum spröde"], answer: "Chlorgas kann durch PTFE diffundieren und das Stahlrohr korrodieren", explanation: "PTFE ist für kleine Gasmoleküle wie Chlor permeabel. Wenn das Gas hinter den Liner gelangt und auf Feuchtigkeit trifft, kann es zu schwerer Korrosion des Trägermaterials kommen." },
+            { level: 'experienced', question: "Welche dieser Bindungen ist am schwächsten und anfälligsten für chemische Angriffe?", options: ["C-F (in PTFE)", "C-H (in PE)", "C-C (in PE)", "C-Cl (in PVC)"], answer: "C-Cl (in PVC)", explanation: "Mit ca. 339 kJ/mol ist die C-Cl-Bindung schwächer als C-C (346 kJ/mol) und C-H (413 kJ/mol), was bei PVC zu Mechanismen wie der Dehydrochlorierung führt." },
+            { level: 'experienced', question: "Welche der folgenden Materialgruppen ist typischerweise für den Einsatz bei sehr tiefen (kryogenen) Temperaturen geeignet, ohne zu verspröden?", options: ["Standard-Polyolefine (PE, PP, PVC)", "Teilfluorierte Elastomere (FKM)", "Nickel-Basis-Legierungen und Edelstähle", "Alle Fluorpolymere"], answer: "Nickel-Basis-Legierungen und Edelstähle", explanation: "Metalle wie Edelstahl und Nickel-Basis-Legierungen behalten ihre Zähigkeit bei sehr tiefen Temperaturen. Viele Polymere, insbesondere Elastomere, verspröden hingegen bei Kälte." },
+            { level: 'experienced', question: "Welches Standard-Redoxpotential hat die Reaktion 2HCIO(aq)+2H++2e- -> Cl2(g)+2H2O?", options: ["+1.36V", "+1.63V", "-1.36V", "-1.63V"], answer: "+1.63V", explanation: "Das Standard-Redoxpotential von +1.63V zeigt die hohe Oxidationskraft der Hypochlorigen Säure an, die sogar stärker ist als die von Chlorgas (+1.36V)." },
+            { level: 'experienced', question: "Welches Element hat den höchsten Multiplikator in der PREN-Formel (%Cr + 3.3x%Mo + 16x%N)?", options: ["Chrom (Cr)", "Molybdän (Mo)", "Stickstoff (N)", "Nickel (Ni)"], answer: "Stickstoff (N)", explanation: "Stickstoff (N) hat mit dem Faktor 16 den stärksten positiven Einfluss auf die Beständigkeit gegen Lochfraßkorrosion in der PREN-Wirksumme." },
+            { level: 'experienced', question: "Wie viele voneinander unabhängige Faktoren müssen für das Auftreten von Spannungsrisskorrosion (SpRK) zusammenkommen?", options: ["Eins", "Zwei", "Drei", "Vier"], answer: "Drei", explanation: "Für SpRK müssen drei Bedingungen erfüllt sein: ein anfälliger Werkstoff, eine spezifische korrosive Umgebung und eine anliegende Zugspannung." },
+            { level: 'experienced', question: "Bis zu welcher ungefähren Temperatur ist trockenes Chlorgas für Kohlenstoffstahl weitgehend nicht korrosiv?", options: ["100°C", "120°C", "150°C", "200°C"], answer: "150°C", explanation: "Unterhalb von ca. 150°C ist die Korrosionsrate von trockenem Chlorgas auf Kohlenstoffstahl gering, was seinen Einsatz für Transport und Lagerung ermöglicht." },
+            { level: 'experienced', question: "Wie hoch ist der ungefähre Chromgehalt von Hastelloy C-22?", options: ["16%", "18%", "20%", "22%"], answer: "22%", explanation: "Der hohe Chromanteil von ca. 22% ist ein Hauptgrund für die überlegene Beständigkeit von Hastelloy C-22 in stark oxidierenden Medien." },
+            { level: 'experienced', question: "Welche zwei Metalle sind die Hauptbestandteile der Legierung Monel 400?", options: ["Nickel und Chrom", "Nickel und Kupfer", "Eisen und Chrom", "Kupfer und Zinn"], answer: "Nickel und Kupfer", explanation: "Monel 400 ist eine Nickel-Kupfer-Legierung. Das Fehlen von Chrom ist der Grund für ihre Anfälligkeit gegenüber oxidierenden Medien." },
+            { level: 'experienced', question: "Was ist der Druck-Derating-Faktor für PE 100 bei einer Temperatur von 80°C?", options: ["0.80", "0.63", "0.50", "0.32"], answer: "0.50", explanation: "Bei 80°C darf ein PE 100-Rohr nur noch mit 50% seines Nenndrucks (bei 20°C) betrieben werden, um mechanisches Versagen zu vermeiden." },
+            { level: 'experienced', question: "Wie hoch ist der Mindest-Chromgehalt in einer Legierung, der für die Bildung einer stabilen Passivschicht erforderlich ist?", options: ["5.5%", "8.0%", "10.5%", "13.0%"], answer: "10.5%", explanation: "Ein Gehalt von mindestens 10.5% Chrom ist notwendig, damit sich eine dichte und stabile Chromoxid-Passivschicht spontan an der Oberfläche bilden kann." },
+            { level: 'experienced', question: "Wie hoch ist die ungefähre Bindungsdissoziationsenergie (BDE) einer C-H-Bindung?", options: ["485 kJ/mol", "413 kJ/mol", "346 kJ/mol", "339 kJ/mol"], answer: "413 kJ/mol", explanation: "Die BDE von ca. 413 kJ/mol macht die C-H-Bindung zum primären Angriffspunkt für starke Oxidationsmittel in nicht-fluorierten Polymeren." },
+            { level: 'experienced', question: "Welche Konzentration an Feuchtigkeit (in ppm) reicht aus, um trockenes Chlorgas in eine hochaggressive Umgebung zu verwandeln?", options: ["Mehrere tausend ppm", "Einige hundert ppm", "Wenige ppm", "Unter 0.1 ppm"], answer: "Wenige ppm", explanation: "Bereits Spuren von Feuchtigkeit im Bereich von wenigen 'parts per million' (ppm) katalysieren die Bildung von HCl und HClO und erhöhen die Korrosivität dramatisch." },
+            { level: 'experienced', question: "Ab welcher ungefähren Chloridkonzentration wird das Risiko für Spaltkorrosion bei Edelstahl 1.4404 (316L) in neutralem Wasser signifikant?", options: ["50-100 mg/l", "100-150 mg/l", "200-250 mg/l", "500-1000 mg/l"], answer: "200-250 mg/l", explanation: "Oberhalb dieses Grenzwertes steigt die Gefahr von lokaler Korrosion in Spalten oder unter Ablagerungen für 316L-Stahl erheblich an." },
+            { level: 'experienced', question: "Welcher Werkstoff steht in der Leistungshierarchie für Chloranwendungen über FKM?", options: ["PE", "PP", "PVC", "PVDF"], answer: "PVDF", explanation: "Die Hierarchie lautet FFKM ≈ PTFE > PVDF > FKM. Die hohe Kristallinität von PVDF macht es beständiger als das amorphe Elastomer FKM." },
+            { level: 'experienced', question: "Um welchen Temperaturbereich erreicht FKM typischerweise seine Glasübergangstemperatur?", options: ["0°C bis -5°C", "-5°C bis -10°C", "-15°C bis -20°C", "-30°C bis -40°C"], answer: "-15°C bis -20°C", explanation: "In diesem Temperaturbereich verliert FKM seine Elastizität, wird hart und spröde und versagt als Dichtungsmaterial." },
+            { level: 'experienced', question: "Wie verhält sich PTFE bei sehr tiefen, kryogenen Temperaturen?", options: ["Es wird extrem spröde", "Es behält eine exzellente Flexibilität", "Es löst sich auf", "Es schrumpft stark"], answer: "Es behält eine exzellente Flexibilität", explanation: "Im Gegensatz zu vielen anderen Polymeren bleibt PTFE auch bei sehr tiefen Temperaturen flexibel und ist daher für kryogene Anwendungen geeignet." },
+            { level: 'experienced', question: "Welche drei Elemente sind die Hauptkomponenten der PREN-Formel?", options: ["Cr, Ni, Fe", "Cr, Mo, N", "Ni, Cu, Mo", "Fe, C, Mn"], answer: "Cr, Mo, N", explanation: "Die Pitting Resistance Equivalent Number (PREN) berechnet sich typischerweise aus den Massenanteilen von Chrom (Cr), Molybdän (Mo) und Stickstoff (N)." },
+            { level: 'experienced', question: "Wie hoch ist der ungefähre Molybdängehalt von Hastelloy C-276?", options: ["10%", "13%", "16%", "22%"], answer: "16%", explanation: "Hastelloy C-276 enthält ca. 16% Chrom und 16% Molybdän, was ihm eine herausragende allgemeine Korrosionsbeständigkeit verleiht." },
+            { level: 'experienced', question: "Wie verhält sich Edelstahl (316L) bei sehr tiefen (kryogenen) Temperaturen?", options: ["Er wird extrem spröde", "Seine Festigkeit nimmt stark ab", "Er behält seine Zähigkeit und wird nicht spröde", "Er wird magnetisch"], answer: "Er behält seine Zähigkeit und wird nicht spröde", explanation: "Austenitische Edelstähle wie 316L sind für Kryo-Anwendungen sehr gut geeignet, da sie im Gegensatz zu ferritischen Stählen bei Kälte nicht verspröden." },
+            { level: 'experienced', question: "Wodurch unterscheidet sich der Versagensmodus von Edelstahl in feuchtem Chlor fundamental von dem von Monel?", options: ["Die Korrosionsrate ist bei Monel geringer", "Edelstahl versagt vorhersehbar, Monel unvorhersehbar", "Edelstahl versagt unvorhersehbar-lokal (SpRK), Monel vorhersehbar-gleichmäßig", "Beide versagen auf die gleiche Weise"], answer: "Edelstahl versagt unvorhersehbar-lokal (SpRK), Monel vorhersehbar-gleichmäßig", explanation: "Dieses sicherheitskritische Detail unterscheidet die beiden Werkstoffe: Das plötzliche, katastrophale Versagen von Edelstahl ist ein viel höheres Risiko als die langsamere, sichtbare Flächenkorrosion von Monel." },
+            { level: 'experienced', question: "Welcher Werkstoff ist für starre Bauteile in feuchtem Chlor eine robuste und oft kostengünstigere Alternative zu vollfluorierten Kunststoffen?", options: ["FKM", "PVC", "PVDF", "PE"], answer: "PVDF", explanation: "Die hohe Kristallinität von PVDF verleiht ihm eine außergewöhnliche Stabilität in feuchtem Chlor, was es zu einer ausgezeichneten Wahl für Rohre oder Armaturen macht." },
+            { level: 'experienced', question: "Bei welchem Werkstoff muss man bei Auskleidungen besonders auf Permeation achten?", options: ["FFKM", "Stahl", "PTFE", "PVDF"], answer: "PTFE", explanation: "PTFE ist für kleine Gasmoleküle wie Chlor durchlässig (permeabel), was bei ausgekleideten Bauteilen zu Korrosion am Trägermaterial führen kann." },
+            { level: 'experienced', question: "Welcher Kennwert quantifiziert die Beständigkeit einer Legierung gegen Lochfraß?", options: ["Härte nach Rockwell", "Streckgrenze Rp0,2", "PREN-Wert", "E-Modul"], answer: "PREN-Wert", explanation: "Die Pitting Resistance Equivalent Number (PREN) ist die etablierte Wirksumme zur Bewertung der Lochfraßbeständigkeit." },
+            { level: 'experienced', question: "Welche freie Chlorkonzentration kann in Spalten bereits ausreichen, um bei Edelstahl 316L Korrosion zu initiieren?", options: ["0.1-0.5 mg/l", "3-5 mg/l", "50-100 mg/l", "Über 200 mg/l"], answer: "3-5 mg/l", explanation: "Bereits geringe Desinfektionskonzentrationen von 3-5 mg/l können an Engstellen und in Spalten lokale Korrosion bei Edelstahl auslösen." },
+            { level: 'experienced', question: "Ein PP-H Rohr (PN10) wird bei 80°C betrieben. Was ist der maximal zulässige Betriebsdruck?", options: ["10 bar", "5.0 bar", "3.2 bar", "7.1 bar"], answer: "3.2 bar", explanation: "Der Derating-Faktor für PP-H bei 80°C ist 0.32. Somit beträgt der zulässige Druck 10 bar * 0.32 = 3.2 bar." },
+            { level: 'experienced', question: "Was ist die ungefähre Bindungsdissoziationsenergie (BDE) einer C-C-Bindung?", options: ["485 kJ/mol", "413 kJ/mol", "346 kJ/mol", "339 kJ/mol"], answer: "346 kJ/mol", explanation: "Die C-C-Bindung ist mit ca. 346 kJ/mol schwächer als C-H und C-F, aber stabiler als C-Cl. Sie kann Teil einer Kettenabbaureaktion werden." },
+            { level: 'experienced', question: "Warum ist FKM in feuchtem Chlor nur bedingt beständig?", options: ["Es ist zu hart", "Seine amorphe Struktur legt C-H-Bindungen für Angriffe frei", "Es löst sich in Wasser", "Es enthält kein Fluor"], answer: "Seine amorphe Struktur legt C-H-Bindungen für Angriffe frei", explanation: "Als amorphes Elastomer sind die C-H-Bindungen im Polymerrückgrat für den Angriff durch Hypochlorige Säure leichter zugänglich als bei hochkristallinen Polymeren." },
+            { level: 'experienced', question: "Welches Polymer neigt am stärksten zu Kaltfluss (Cold Flow)?", options: ["FFKM", "FKM", "PVDF", "PTFE"], answer: "PTFE", explanation: "PTFE ist für seine Neigung zum Kaltfluss bekannt, was insbesondere bei Dichtungsanwendungen zu einem Nachlassen der Dichtpressung führt." },
+            { level: 'experienced', question: "Was beschreibt der Begriff 'Kriechen' (Creep) bei Polymeren?", options: ["Die elastische Verformung unter Last", "Die zeitabhängige, permanente Verformung unter konstanter Last", "Die Zunahme der Härte über die Zeit", "Die Aufnahme von Feuchtigkeit"], answer: "Die zeitabhängige, permanente Verformung unter konstanter Last", explanation: "Kriechen ist eine irreversible Verformung, die für die Langzeit-Druckfestigkeit von Kunststoffrohren entscheidend ist." },
+            { level: 'experienced', question: "Wie hoch ist der ungefähre Chromgehalt von Hastelloy C-276?", options: ["13%", "16%", "19%", "22%"], answer: "16%", explanation: "Hastelloy C-276 hat ca. 16% Chrom und 16% Molybdän. C-22 hat mehr Chrom (ca. 22%) und etwas weniger Molybdän (ca. 13%)." },
+            { level: 'experienced', question: "Welche dieser Legierungen bildet KEINE schützende Chromoxid-Passivschicht?", options: ["Edelstahl 316L", "Hastelloy C-22", "Hastelloy C-276", "Monel 400"], answer: "Monel 400", explanation: "Monel 400 ist eine Nickel-Kupfer-Legierung und enthält kein Chrom, weshalb es keine Passivschicht bilden kann." },
+            { level: 'experienced', question: "Welcher Werkstoff hat eine bessere Kälteflexibilität?", options: ["FKM", "PVDF", "PVC", "PTFE"], answer: "PTFE", explanation: "PTFE behält eine exzellente Flexibilität bei sehr tiefen Temperaturen, während FKM, PVDF und PVC bei Kälte verspröden." },
+            { level: 'experienced', question: "Was ist der Mechanismus der Hochtemperatur-Chlorkorrosion bei Metallen?", options: ["Bildung einer stabilen Oxidschicht", "Bildung von flüchtigen Metallchloriden", "Interkristalline Korrosion", "Wasserstoffversprödung"], answer: "Bildung von flüchtigen Metallchloriden", explanation: "Bei hohen Temperaturen reagiert Chlor direkt mit dem Metall zu flüchtigen Metallchloriden, was zu einem massiven, schnellen Materialabtrag führt." },
+            { level: 'experienced', question: "Ein PVDF-Rohr (PN16) wird bei 100°C betrieben. Was ist der maximal zulässige Druck?", options: ["16 bar", "12.8 bar", "8.0 bar", "6.4 bar"], answer: "6.4 bar", explanation: "Der Derating-Faktor für PVDF bei 100°C ist 0.40. Der zulässige Druck beträgt 16 bar * 0.40 = 6.4 bar." },
+            
+            // Level: Expert (Tiefgehendes & Kombiniertes Wissen)
+            { level: 'expert', question: "Was ist der Mechanismus der Hochtemperatur-Chlorkorrosion bei Metallen?", options: ["Bildung einer stabilen Oxidschicht", "Bildung von flüchtigen Metallchloriden", "Interkristalline Korrosion", "Wasserstoffversprödung"], answer: "Bildung von flüchtigen Metallchloriden", explanation: "Bei hohen Temperaturen reagiert Chlor direkt mit dem Metall zu flüchtigen Metallchloriden, was zu einem massiven, schnellen Materialabtrag führt." },
+            { level: 'expert', question: "Ein PVDF-Rohr (PN16) wird bei 100°C betrieben. Was ist der maximal zulässige Druck?", options: ["16 bar", "12.8 bar", "8.0 bar", "6.4 bar"], answer: "6.4 bar", explanation: "Der Derating-Faktor für PVDF bei 100°C ist 0.40. Der zulässige Druck beträgt 16 bar * 0.40 = 6.4 bar." },
+            { level: 'expert', question: "Wodurch unterscheidet sich der Versagensmodus von Edelstahl in feuchtem Chlor fundamental von dem von Monel?", options: ["Die Korrosionsrate ist bei Monel geringer", "Edelstahl versagt vorhersehbar, Monel unvorhersehbar", "Edelstahl versagt unvorhersehbar-lokal (SpRK), Monel vorhersehbar-gleichmäßig", "Beide versagen auf die gleiche Weise"], answer: "Edelstahl versagt unvorhersehbar-lokal (SpRK), Monel vorhersehbar-gleichmäßig", explanation: "Dieses sicherheitskritische Detail unterscheidet die beiden Werkstoffe: Das plötzliche, katastrophale Versagen von Edelstahl ist ein viel höheres Risiko als die langsamere, sichtbare Flächenkorrosion von Monel." },
+            { level: 'expert', question: "Welcher Faktor in der PREN-Formel hat den größten Einfluss pro Prozentpunkt?", options: ["Chrom", "Molybdän", "Stickstoff", "Nickel"], answer: "Stickstoff", explanation: "Mit einem Multiplikator von 16 hat Stickstoff den stärksten Einfluss auf die Erhöhung der Lochfraßbeständigkeit in der PREN-Berechnung." },
+            { level: 'expert', question: "Warum ist die Aussage 'trockenes Chlorgas ist zu schwach für den Angriff auf C-H-Bindungen' eine sicherheitskritische Vereinfachung?", options: ["Weil es bei Kontakt explodiert", "Weil es zu langsamer, aber stetiger oxidativer Degradation und Versprödung führt", "Weil es Kunststoffe sofort schmilzt", "Weil es sofort mit C-F-Bindungen reagiert"], answer: "Weil es zu langsamer, aber stetiger oxidativer Degradation und Versprödung führt", explanation: "Auch wenn die Reaktion langsam ist, führt sie über längere Expositionszeiten zu Kettenabbau und untergräbt die mechanische Integrität, was diese Werkstoffe für langlebige Anwendungen ungeeignet macht." },
+            { level: 'expert', question: "Welche elektrochemische Eigenschaft belegt quantitativ, dass Hypochlorige Säure ein stärkeres Oxidationsmittel ist als Chlorgas?", options: ["Ihr niedrigerer pH-Wert", "Ihre höhere elektrische Leitfähigkeit", "Ihr höheres Standard-Redoxpotential (+1.63V vs. +1.36V)", "Ihre geringere molare Masse"], answer: "Ihr höheres Standard-Redoxpotential (+1.63V vs. +1.36V)", explanation: "Das höhere elektrochemische Potential ist ein direktes Maß für die gesteigerte Fähigkeit, Elektronen aus anderen Materialien zu extrahieren und deren Zersetzung zu beschleunigen." },
+            { level: 'expert', question: "Welche strukturelle Eigenschaft von PVDF ist der Hauptgrund für seine überraschend hohe Beständigkeit in feuchtem Chlor?", options: ["Seine amorphe Struktur", "Sein hoher Fluorgehalt allein", "Seine hohe Kristallinität und dichte Molekülstruktur", "Seine geringe Dichte"], answer: "Seine hohe Kristallinität und dichte Molekülstruktur", explanation: "Die chemische Stabilität von PVDF resultiert nicht nur aus den Bindungsenergien, sondern entscheidend aus seiner dichten, hochkristallinen Struktur, die eine effektive Barriere gegen chemische Angriffe bildet." },
+            { level: 'expert', question: "Welches der folgenden Materialien würde in einer Dichtungsanwendung mit starken thermischen Zyklen am ehesten durch Kaltfluss versagen?", options: ["FFKM", "FKM", "PTFE", "PVDF"], answer: "PTFE", explanation: "Der Kaltfluss von PTFE führt zu einem Nachlassen der Dichtpressung, was besonders bei thermischen Zyklen (Aufheizen und Abkühlen) zu Leckagen führen kann." },
+            { level: 'expert', question: "Aus welchen drei Komponenten besteht der heimtückische Versagensmechanismus der Spannungsrisskorrosion?", options: ["Hohe Temperatur, hoher Druck, hohe Fließgeschwindigkeit", "Anfälliger Werkstoff, spezifisches korrosives Medium, anliegende Zugspannung", "Niedriger pH-Wert, hohe Leitfähigkeit, Anwesenheit von Sauerstoff", "UV-Strahlung, mechanische Vibration, Abrieb"], answer: "Anfälliger Werkstoff, spezifisches korrosives Medium, anliegende Zugspannung", explanation: "Nur wenn diese drei Faktoren gleichzeitig erfüllt sind, kann es zum spröden Versagen durch SpRK kommen, oft ohne sichtbare Vorwarnung." },
+            { level: 'expert', question: "Was ist der wesentliche Unterschied im Versagensmodus zwischen 'Kriechen' und 'Spannungsrisskorrosion'?", options: ["Kriechen ist elastisch, SpRK ist plastisch", "Kriechen ist eine langsame Verformung, SpRK ist eine schnelle Rissbildung", "Kriechen betrifft nur Metalle, SpRK nur Kunststoffe", "Kriechen ist temperaturunabhängig, SpRK nicht"], answer: "Kriechen ist eine langsame Verformung, SpRK ist eine schnelle Rissbildung", explanation: "Kriechen (Creep) ist eine zeitabhängige, irreversible Verformung (Dehnung) unter Last, während SpRK die Bildung und das Wachstum eines spröden Risses unter der kombinierten Einwirkung von Spannung und Korrosion beschreibt." },
+            { level: 'expert', question: "Warum ist die Analogie einer 'sich selbst beschleunigenden elektrochemischen Zelle' für Lochfraßkorrosion passend?", options: ["Weil die Korrosionsrate linear mit der Zeit zunimmt", "Weil eine winzige Anode (Loch) und eine riesige Kathode (passive Oberfläche) einen extremen Korrosionsstrom treiben", "Weil die Korrosion Wärme erzeugt, die die Reaktion beschleunigt", "Weil das korrodierende Metall als Katalysator wirkt"], answer: "Weil eine winzige Anode (Loch) und eine riesige Kathode (passive Oberfläche) einen extremen Korrosionsstrom treiben", explanation: "Der extreme Flächenunterschied zwischen dem kleinen Initiationspunkt (Anode) und der großen, intakten Oberfläche (Kathode) führt zu einem sich selbst verstärkenden Prozess, der zu schnellem, tiefem Materialabtrag führt." },
+            { level: 'expert', question: "Welche Bindung in teilfluorierten Polymeren wie FKM ist der primäre Angriffspunkt für Hypochlorige Säure?", options: ["Die C-F-Bindung", "Die C-C-Bindung im Polymerrückgrat", "Die C-H-Bindung", "Die Vernetzungsstellen"], answer: "Die C-H-Bindung", explanation: "Die C-H-Bindungen stellen die energetisch schwächsten Stellen dar und sind die primären Angriffspunkte, deren Anfälligkeit aber auch von strukturellen Faktoren wie der Kristallinität abhängt." },
+            { level: 'expert', question: "Ein Rohrleitungssystem aus Edelstahl 316L transportiert Wasser mit 300 mg/l Chloriden bei 50°C. Welches Risiko ist am wahrscheinlichsten?", options: ["Spannungsrisskorrosion (SpRK)", "Allgemeine Flächenkorrosion", "Spaltkorrosion", "Kein signifikantes Risiko"], answer: "Spaltkorrosion", explanation: "Die Chloridkonzentration liegt über dem Grenzwert von 200-250 mg/l für Spaltkorrosion. Die Temperatur liegt aber noch unter der kritischen Schwelle von ca. 60°C für SpRK." },
+            { level: 'expert', question: "Welche Eigenschaft von Chlorid-Ionen (Cl-) macht sie so effektiv bei der Zerstörung von Passivschichten?", options: ["Ihre große Größe und ihr hohes Gewicht", "Ihre positive Ladung", "Ihre geringe Größe und hohe Mobilität", "Ihre Fähigkeit, mit Sauerstoff zu reagieren"], answer: "Ihre geringe Größe und hohe Mobilität", explanation: "Diese Eigenschaften ermöglichen es den Chlorid-Ionen, die Passivschicht an mikroskopischen Schwachstellen zu durchdringen, Sauerstoffatome im Oxidgitter zu verdrängen und die Schicht zu destabilisieren." },
+            { level: 'expert', question: "Ein System wird mit flüssigem Chlor betrieben. Warum könnte ein FKM-Dichtring versagen, obwohl er in trockenem Chlorgas exzellent wäre?", options: ["Wegen Kaltfluss", "Wegen Permeation", "Wegen der Lösungsmittelwirkung des flüssigen Chlors", "Wegen Hydrolyse"], answer: "Wegen der Lösungsmittelwirkung des flüssigen Chlors", explanation: "Flüssiges Chlor wirkt als potentes Lösungsmittel, das in FKM diffundiert, zu starkem Aufquellen führt und die mechanische Festigkeit der Dichtung zerstört." },
+            { level: 'expert', question: "Welche Aussage über die Korrosionsbeständigkeit von Monel 400 ist korrekt?", options: ["Exzellent in oxidierenden und nicht-oxidierenden Medien", "Schlecht in allen Medien", "Exzellent in nicht-oxidierenden Medien, aber schlecht in oxidierenden", "Exzellent in oxidierenden Medien, aber schlecht in nicht-oxidierenden"], answer: "Exzellent in nicht-oxidierenden Medien, aber schlecht in oxidierenden", explanation: "Die Korrosionsbeständigkeit von Monel beruht auf der Edelkeit der Nickel-Kupfer-Matrix, die in nicht-oxidierenden Medien hervorragend ist, aber von Oxidationsmitteln wie HClO schnell angegriffen wird." },
+            { level: 'expert', question: "Ordnen Sie die folgenden Bindungen nach absteigender Bindungsdissoziationsenergie (stärkste zuerst):", options: ["C-H > C-F > C-C > C-Cl", "C-F > C-H > C-C > C-Cl", "C-F > C-C > C-H > C-Cl", "C-Cl > C-H > C-C > C-F"], answer: "C-F > C-H > C-C > C-Cl", explanation: "Die Reihenfolge lautet ca.: C-F (485) > C-H (413) > C-C (346) > C-Cl (339) kJ/mol. Diese Hierarchie bestimmt maßgeblich die chemische Stabilität von Polymeren." },
+            { level: 'expert', question: "Was ist der primäre Grund, warum eine Bewertung von PE oder PP mit 8/10 in trockenem Chlorgas als 'potenziell gefährlich' eingestuft wird?", options: ["Weil die Bewertung zu niedrig ist", "Weil sie die langfristige oxidative Degradation und Versprödung ignoriert", "Weil sie die Gefahr des Aufquellens unterschätzt", "Weil sie die Kosten nicht berücksichtigt"], answer: "Weil sie die langfristige oxidative Degradation und Versprödung ignoriert", explanation: "Eine hohe Bewertung suggeriert eine Eignung für Dauerbetrieb, ignoriert aber den langsamen, aber stetigen Kettenabbau, der die mechanische Integrität langfristig untergräbt und zum Versagen führen kann." },
+            { level: 'expert', question: "Ein PP-H Rohr (PN10) und ein PVC-U Rohr (PN10) werden beide bei 60°C betrieben. Welches Rohr hat den höheren zulässigen Betriebsdruck?", options: ["PVC-U", "PP-H", "Beide haben den gleichen Druck", "Keines von beiden ist geeignet"], answer: "PP-H", explanation: "Bei 60°C beträgt der Derating-Faktor für PP-H 0.50 (ergibt 5 bar), während er für PVC-U nur 0.20 beträgt (ergibt 2 bar). PP-H ist also druckfester bei dieser Temperatur." },
+            { level: 'expert', question: "Was ist der fundamentalste Unterschied im Risikoprofil zwischen dem Versagen von Edelstahl und dem von Hastelloy in kritischen Chloranwendungen?", options: ["Die Kosten der Reparatur", "Die Geschwindigkeit der Korrosion", "Der Mechanismus: unvorhersehbares, katastrophales Versagen (SpRK) bei Edelstahl vs. hohe Immunität bei Hastelloy", "Die Farbe der Korrosionsprodukte"], answer: "Der Mechanismus: unvorhersehbares, katastrophales Versagen (SpRK) bei Edelstahl vs. hohe Immunität bei Hastelloy", explanation: "Die Wahl von Hastelloy ist eine bewusste Entscheidung zur Eliminierung des hochriskanten, unvorhersehbaren Versagensmodus der Spannungsrisskorrosion, dem Edelstahl unterliegt." }
+        ];
+
+        // --- APPLICATION LOGIC ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const mediumSelect = document.getElementById('medium');
+            const tempSlider = document.getElementById('temperature');
+            const tempValue = document.getElementById('tempValue');
+            const pressureContainer = document.getElementById('pressure');
+            const resultsGrid = document.getElementById('resultsGrid');
+            const sccWarning = document.getElementById('sccWarning');
+
+            let currentMedium = mediumSelect.value;
+            let currentTemp = parseInt(tempSlider.value);
+            let currentPressureKey = 'ueberdruck'; // Default to ueberdruck scenario for initial display
+
+            function updateSimulator() {
+                resultsGrid.innerHTML = ''; // Clear previous results
+                
+                // Update SCC warning
+                if (currentTemp > 60) {
+                    sccWarning.textContent = 'SpRK-Gefahr für Edelstahl!';
+                } else {
+                    sccWarning.textContent = '';
+                }
+
+                for (const material in materialData) {
+                    let scenario;
+
+                    // Case 1: The user is evaluating a specific mechanical load (Überdruck or Vakuum)
+                    if (currentPressureKey === 'ueberdruck' || currentPressureKey === 'vakuum') {
+                        scenario = materialData[material][currentPressureKey];
+
+                        // Special case: SpRK for stainless steel under pressure AND high temp
+                        if (material === 'Edelstahl (316L)' && currentTemp > 60 && currentPressureKey === 'ueberdruck') {
+                            scenario = materialData[material]['ueberdruck'];
+                        }
+                    } 
+                    // Case 2: The user is evaluating chemical resistance vs. temperature ('Nur Temp.')
+                    else { 
+                        // Start with the chemical medium as the baseline
+                        scenario = materialData[material][currentMedium];
+
+                        // Check for high temperature degradation
+                        const tempScenario = materialData[material]['einfluss_temp'];
+                        if (currentTemp >= 60 && tempScenario.rating < scenario.rating) {
+                            scenario = tempScenario;
+                        }
+
+                        // Check for low temperature embrittlement
+                        const kaelteScenario = materialData[material]['einfluss_kaelte'];
+                        if (currentTemp < 0 && kaelteScenario.rating < scenario.rating) {
+                            scenario = kaelteScenario;
+                        }
+                    }
+
+                    const card = document.createElement('div');
+                    card.className = `glass-pane p-4 rounded-lg flex flex-col justify-between transform hover:scale-105 transition-transform duration-200`;
+                    
+                    const ratingClass = `rating-gradient-${scenario.rating}`;
+
+                    card.innerHTML = `
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <h4 class="text-lg font-bold text-white">${material}</h4>
+                                <div class="${ratingClass} rounded-full w-10 h-10 flex items-center justify-center font-bold text-lg">
+                                    ${scenario.rating}
+                                </div>
+                            </div>
+                            <p class="text-gray-400 text-sm h-10">${materialData[material].summary}</p>
+                        </div>
+                        <button 
+                            data-material="${material}" 
+                            data-rating="${scenario.rating}"
+                            data-comment="${scenario.comment.replace(/"/g, '&quot;')}"
+                            class="details-btn mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors">
+                            Details
+                        </button>
+                    `;
+                    resultsGrid.appendChild(card);
+                }
+            }
+            
+            // --- MATERIAL MODAL LOGIC ---
+            const materialModal = document.getElementById('materialModal');
+            const modalContent = document.getElementById('modalContent');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            const closeModal = document.getElementById('closeModal');
+
+            function openMaterialModal(materialKey, currentRating, currentComment) {
+                const data = materialData[materialKey];
+                if (!data) return;
+
+                modalTitle.textContent = materialKey;
+
+                // Get current conditions from controls
+                const selectedMediumText = mediumSelect.options[mediumSelect.selectedIndex].text;
+                const selectedTemp = tempSlider.value;
+                const selectedPressureButton = pressureContainer.querySelector('.bg-blue-600');
+                const selectedPressureText = selectedPressureButton ? selectedPressureButton.textContent : 'N/A';
+                
+                // Build the dynamic scenario analysis
+                const scenarioHtml = `
+                    <div class="p-4 rounded-lg border border-blue-500/50 bg-blue-500/10 mb-6">
+                        <h4 class="text-white font-bold">Bewertung im aktuellen Szenario</h4>
+                        <p class="text-sm"><strong>Bedingungen:</strong> ${selectedMediumText} bei ${selectedTemp}°C</p>
+                        <p class="text-sm"><strong>Belastung:</strong> ${selectedPressureText}</p>
+                        <p class="mt-2"><strong><span class="text-lg">Bewertung: ${currentRating}/10</span></strong><br>
+                        <strong>Grund:</strong> ${currentComment}</p>
+                    </div>
+                    <hr class="border-gray-600 my-4">
+                `;
+
+                modalBody.innerHTML = scenarioHtml + data.details;
+                
+                materialModal.classList.remove('invisible', 'opacity-0');
+                modalContent.classList.remove('scale-95');
+            }
+
+            function hideMaterialModal() {
+                 materialModal.classList.add('opacity-0');
+                 modalContent.classList.add('scale-95');
+                 setTimeout(() => materialModal.classList.add('invisible'), 250);
+            }
+
+            resultsGrid.addEventListener('click', (e) => {
+                const button = e.target.closest('.details-btn');
+                if (button) {
+                    const { material, rating, comment } = button.dataset;
+                    openMaterialModal(material, rating, comment);
+                }
+            });
+            
+            closeModal.addEventListener('click', hideMaterialModal);
+            materialModal.addEventListener('click', (e) => {
+                if (e.target === materialModal) {
+                    hideMaterialModal();
+                }
+            });
+
+            // --- MATERIAL DETAILS ACCORDION LOGIC ---
+            const materialsGrid = document.getElementById('materialsGrid');
+            for (const materialKey in materialData) {
+                const data = materialData[materialKey];
+                const accordionItem = document.createElement('div');
+                accordionItem.className = 'glass-pane rounded-lg';
+                accordionItem.innerHTML = `
+                    <div class="accordion-header p-6 cursor-pointer flex justify-between items-center">
+                        <div>
+                            <h4 class="text-xl font-bold text-white">${materialKey}</h4>
+                            <p class="text-gray-400 text-sm">${data.summary}</p>
+                        </div>
+                        <svg class="chevron w-6 h-6 text-white flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </div>
+                    <div class="details-accordion px-6 pb-6 prose prose-invert max-w-none">
+                        ${data.details}
+                    </div>
+                `;
+                materialsGrid.appendChild(accordionItem);
+            }
+            
+            // Event Listeners for controls
+            mediumSelect.addEventListener('change', (e) => {
+                currentMedium = e.target.value;
+                updateSimulator();
+            });
+
+            tempSlider.addEventListener('input', (e) => {
+                currentTemp = parseInt(e.target.value);
+                tempValue.textContent = `${currentTemp}°C`;
+                updateSimulator();
+            });
+
+            pressureContainer.addEventListener('click', (e) => {
+                 if (e.target.tagName === 'BUTTON') {
+                    pressureContainer.querySelectorAll('button').forEach(btn => btn.classList.remove('bg-blue-600'));
+                    e.target.classList.add('bg-blue-600');
+                    currentPressureKey = e.target.dataset.value;
+                    updateSimulator();
+                }
+            });
+
+            // Initial setup
+            pressureContainer.querySelector(`button[data-value="${currentPressureKey}"]`).classList.add('bg-blue-600');
+            updateSimulator();
+             // --- Accordion Logic ---
+            document.querySelectorAll('.accordion-header').forEach(header => {
+                header.addEventListener('click', () => {
+                    const details = header.nextElementSibling;
+                    const isExpanded = details.classList.contains('expanded');
+                    
+                    document.querySelectorAll('.details-accordion.expanded').forEach(el => {
+                         if(el !== details) {
+                            el.classList.remove('expanded');
+                            el.previousElementSibling.classList.remove('expanded');
+                        }
+                    });
+
+                    details.classList.toggle('expanded');
+                    header.classList.toggle('expanded');
+                });
+            });
+
+
+            // --- NEW QUIZ ACADEMY LOGIC ---
+            const quizEntryPoint = document.getElementById('quiz-entry-point');
+            const quizContainer = document.getElementById('quiz-container');
+            const openQuizModalBtn = document.getElementById('open-quiz-modal-btn');
+            const quizLevelModal = document.getElementById('quizLevelModal');
+            const closeQuizModalBtn = document.getElementById('closeQuizModal');
+            const levelSelectionContainer = document.getElementById('level-selection-container');
+            
+            let unlockedLevels = ['beginner']; // Start with beginner unlocked
+            let achievements = [];
+
+            const quizLevels = {
+                beginner: { name: 'Anfänger', count: 10, required: 0, icon: '🎓', color: 'blue' },
+                advanced: { name: 'Fortgeschrittener', count: 20, required: 'beginner', icon: '🔧', color: 'green' },
+                experienced: { name: 'Erfahrener', count: 40, required: 'advanced', icon: '🔬', color: 'yellow' },
+                expert: { name: 'Experte', count: 100, required: 'experienced', icon: '🏆', color: 'red' }
+            };
+
+            function showQuizModal() {
+                levelSelectionContainer.innerHTML = '';
+                for (const levelKey in quizLevels) {
+                    const level = quizLevels[levelKey];
+                    const isUnlocked = unlockedLevels.includes(levelKey);
+                    const hasAchievement = achievements.includes(levelKey);
+
+                    const card = document.createElement('div');
+                    card.className = `level-card glass-pane p-6 rounded-lg text-center transition-all duration-300 ${isUnlocked ? 'hover:scale-105 cursor-pointer' : 'locked'}`;
+                    if (isUnlocked) {
+                        card.dataset.level = levelKey;
+                    }
+
+                    card.innerHTML = `
+                        <div class="text-5xl mb-4">${level.icon}</div>
+                        <h4 class="text-xl font-bold text-white">${level.name}</h4>
+                        <p class="text-sm text-gray-400 mb-4">${level.count} Fragen</p>
+                        ${!isUnlocked ? '<div class="text-2xl text-gray-500">🔒</div>' : ''}
+                        ${hasAchievement ? `<div class="mt-2 text-sm font-bold text-${level.color}-400">✓ Bestanden</div>` : ''}
+                    `;
+                    levelSelectionContainer.appendChild(card);
+                }
+                
+                quizLevelModal.classList.remove('invisible', 'opacity-0');
+                quizLevelModal.querySelector('.modal-content').classList.remove('scale-95');
+            }
+
+            function hideQuizModal() {
+                quizLevelModal.classList.add('opacity-0');
+                quizLevelModal.querySelector('.modal-content').classList.add('scale-95');
+                setTimeout(() => quizLevelModal.classList.add('invisible'), 250);
+            }
+
+            openQuizModalBtn.addEventListener('click', showQuizModal);
+            closeQuizModalBtn.addEventListener('click', hideQuizModal);
+            
+            levelSelectionContainer.addEventListener('click', e => {
+                const card = e.target.closest('.level-card');
+                if (card && card.dataset.level) {
+                    const levelKey = card.dataset.level;
+                    const level = quizLevels[levelKey];
+                    const questionsForLevel = allQuizQuestions.filter(q => q.level === levelKey || (levelKey === 'expert' && ['beginner', 'advanced', 'experienced', 'expert'].includes(q.level)) || (levelKey === 'experienced' && ['beginner', 'advanced', 'experienced'].includes(q.level)) || (levelKey === 'advanced' && ['beginner', 'advanced'].includes(q.level)) ).sort(() => 0.5 - Math.random()).slice(0, level.count);
+                    
+                    startQuiz(questionsForLevel, levelKey);
+                }
+            });
+
+
+            let currentQuizQuestions = [];
+            let currentLevelKey = '';
+            let currentQuestionIndex = 0;
+            let score = 0;
+
+            function startQuiz(questions, levelKey) {
+                hideQuizModal();
+                quizEntryPoint.classList.add('hidden');
+                quizContainer.classList.remove('hidden');
+
+                currentQuizQuestions = questions;
+                currentLevelKey = levelKey;
+                currentQuestionIndex = 0;
+                score = 0;
+                showQuestion();
+            }
+
+            function showQuestion() {
+                const questionData = currentQuizQuestions[currentQuestionIndex];
+                
+                quizContainer.innerHTML = `
+                    <h3 class="text-xl md:text-2xl font-bold text-white mb-4">${questionData.question}</h3>
+                    <div class="flex justify-between items-center mb-6">
+                        <p class="text-gray-400">Frage ${currentQuestionIndex + 1} von ${currentQuizQuestions.length}</p>
+                        <p class="text-white font-bold">Punkte: ${score}</p>
+                    </div>
+                    <div id="options-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        ${questionData.options.map(option => `
+                            <button class="option-btn p-4 bg-gray-700 hover:bg-gray-600 rounded-lg text-white transition-colors duration-200">${option}</button>
+                        `).join('')}
+                    </div>
+                    <div id="feedback-container" class="mt-4 p-4 rounded-lg min-h-[120px]"></div>
+                `;
+
+                document.querySelectorAll('.option-btn').forEach(button => {
+                    button.addEventListener('click', selectAnswer);
+                });
+            }
+
+            function selectAnswer(e) {
+                const selectedOption = e.target.textContent;
+                const questionData = currentQuizQuestions[currentQuestionIndex];
+                const feedbackContainer = document.getElementById('feedback-container');
+                let isCorrect = selectedOption === questionData.answer;
+
+                document.querySelectorAll('.option-btn').forEach(btn => {
+                    btn.disabled = true;
+                    if (btn.textContent === questionData.answer) {
+                        btn.classList.remove('bg-gray-700', 'hover:bg-gray-600');
+                        btn.classList.add('bg-green-600');
+                    } else if (btn.textContent === selectedOption) {
+                        btn.classList.remove('bg-gray-700', 'hover:bg-gray-600');
+                        btn.classList.add('bg-red-600');
+                    }
+                });
+
+                if (isCorrect) {
+                    score++;
+                    feedbackContainer.innerHTML = `
+                        <p class="text-green-400 font-bold">Richtig!</p>
+                        <p class="text-gray-300 mt-2">${questionData.explanation}</p>
+                    `;
+                } else {
+                    feedbackContainer.innerHTML = `
+                        <p class="text-red-400 font-bold">Falsch.</p>
+                        <p class="text-gray-300 mt-2">${questionData.explanation}</p>
+                    `;
+                }
+
+                setTimeout(() => {
+                    currentQuestionIndex++;
+                    if (currentQuestionIndex < currentQuizQuestions.length) {
+                        showQuestion();
+                    } else {
+                        showQuizResults();
+                    }
+                }, 4000);
+            }
+
+            function showQuizResults() {
+                const percentage = (score / currentQuizQuestions.length) * 100;
+                const passed = percentage >= 90;
+                let resultHTML = '';
+
+                if (passed) {
+                    if (!achievements.includes(currentLevelKey)) {
+                        achievements.push(currentLevelKey);
+                    }
+                    const nextLevelKey = Object.keys(quizLevels)[Object.keys(quizLevels).indexOf(currentLevelKey) + 1];
+                    if (nextLevelKey && !unlockedLevels.includes(nextLevelKey)) {
+                        unlockedLevels.push(nextLevelKey);
+                    }
+                    
+                    resultHTML = `
+                        <h3 class="text-2xl font-bold text-green-400 mb-4">Stufe Bestanden!</h3>
+                        <p class="text-lg text-gray-300 mb-2">Ergebnis: ${score} / ${currentQuizQuestions.length} (${percentage.toFixed(0)}%)</p>
+                        <p class="text-yellow-400 font-bold mb-6">Orden '${quizLevels[currentLevelKey].name}' erhalten! ${quizLevels[currentLevelKey].icon}</p>
+                        ${nextLevelKey ? `<p class="mb-4">Du hast die Stufe '${quizLevels[nextLevelKey].name}' freigeschaltet!</p>` : '<p class="mb-4">Glückwunsch! Du hast die höchste Stufe erreicht!</p>'}
+                    `;
+                } else {
+                    resultHTML = `
+                        <h3 class="text-2xl font-bold text-red-400 mb-4">Leider nicht bestanden.</h3>
+                        <p class="text-lg text-gray-300 mb-2">Ergebnis: ${score} / ${currentQuizQuestions.length} (${percentage.toFixed(0)}%)</p>
+                        <p class="text-gray-400 mb-6">Du benötigst mindestens 90%, um die nächste Stufe freizuschalten. Versuche es erneut!</p>
+                    `;
+                }
+
+                quizContainer.innerHTML = `
+                    ${resultHTML}
+                    <button id="back-to-levels-btn" class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors">
+                        Zurück zur Stufenauswahl
+                    </button>
+                `;
+                
+                document.getElementById('back-to-levels-btn').addEventListener('click', () => {
+                    quizContainer.classList.add('hidden');
+                    quizEntryPoint.classList.remove('hidden');
+                    showQuizModal();
+                });
+            }
+
+            // --- Source Modal Logic ---
+            const openSourceModalBtn = document.getElementById('open-source-modal-btn');
+            const sourceModal = document.getElementById('sourceModal');
+            const closeSourceModalBtn = document.getElementById('closeSourceModal');
+
+            openSourceModalBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                sourceModal.classList.remove('invisible', 'opacity-0');
+                sourceModal.querySelector('.modal-content').classList.remove('scale-95');
+            });
+
+            const hideSourceModal = () => {
+                sourceModal.classList.add('opacity-0');
+                sourceModal.querySelector('.modal-content').classList.add('scale-95');
+                setTimeout(() => sourceModal.classList.add('invisible'), 250);
+            };
+
+            closeSourceModalBtn.addEventListener('click', hideSourceModal);
+            sourceModal.addEventListener('click', (e) => {
+                if (e.target === sourceModal) {
+                    hideSourceModal();
+                }
+            });
+            
+            // --- Feedback Modal Logic ---
+            const openFeedbackModalBtn = document.getElementById('open-feedback-modal-btn');
+            const feedbackModal = document.getElementById('feedbackModal');
+            const closeFeedbackModalBtn = document.getElementById('closeFeedbackModal');
+            const feedbackForm = document.getElementById('feedbackForm');
+
+            openFeedbackModalBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                feedbackModal.classList.remove('invisible', 'opacity-0');
+                feedbackModal.querySelector('.modal-content').classList.remove('scale-95');
+            });
+            
+            const hideFeedbackModal = () => {
+                feedbackModal.classList.add('opacity-0');
+                feedbackModal.querySelector('.modal-content').classList.add('scale-95');
+                setTimeout(() => feedbackModal.classList.add('invisible'), 250);
+            };
+
+            closeFeedbackModalBtn.addEventListener('click', hideFeedbackModal);
+            feedbackModal.addEventListener('click', e => {
+                if(e.target === feedbackModal) {
+                    hideFeedbackModal();
+                }
+            });
+            
+            feedbackForm.addEventListener('submit', e => {
+                e.preventDefault();
+                const feedbackText = document.getElementById('feedbackText').value;
+                const confirmation = document.getElementById('feedback-confirmation');
+                
+                if (feedbackText.trim() === '') {
+                    confirmation.textContent = 'Bitte geben Sie eine Nachricht ein.';
+                    confirmation.classList.remove('text-green-400');
+                    confirmation.classList.add('text-red-400');
+                    return;
+                }
+                
+                const subject = 'Feedback zum Werkstoff-Navigator Chlor';
+                const body = `Feedback vom Nutzer:\n\n${feedbackText}`;
+                const mailtoLink = `mailto:Mehmetaj.argjend@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                
+                window.location.href = mailtoLink;
+                
+                confirmation.textContent = 'Danke! Ihr E-Mail-Client wird geöffnet.';
+                confirmation.classList.remove('text-red-400');
+                confirmation.classList.add('text-green-400');
+                
+                setTimeout(() => {
+                    hideFeedbackModal();
+                    document.getElementById('feedbackText').value = '';
+                    confirmation.textContent = '';
+                }, 3000);
+            });
+
+
+        });
+    </script>
+</body>
+</html>
